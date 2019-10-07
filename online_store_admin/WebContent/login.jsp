@@ -47,7 +47,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 mb-0">
-						<a href="index.jsp">Home</a> <span class="mx-2 mb-0">/</span> <strong
+						<a href="index.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <strong
 							class="text-black">Login</strong>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 						<%
 							}
 						%>
-						<form action="admController.java" method="POST">
+						<form action="/online_store_admin/admController" method="POST">
 
 							<div class="p-3 p-lg-5 border">
 

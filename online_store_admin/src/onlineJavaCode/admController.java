@@ -51,7 +51,7 @@ package onlineJavaCode;
 		 */
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
-			context.getRequestDispatcher("/login.jsp").forward(request, response);
+			context.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		/**
 		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -74,28 +74,27 @@ package onlineJavaCode;
 						  if(matcher.matches()==false) {
 							  	message="BAD FORMAT EMAIL";
 								request.setAttribute("message",message);
-								request.getRequestDispatcher("/login.jsp").forward(request, response);
+								request.getRequestDispatcher("login.jsp").forward(request, response);
 						  }
 						  else {
 							  user act=DM.getUser(user); //Check name in database
 							  if(act==null) {
 								  message="NOT EXISTS USER";
 								  request.setAttribute("message",message);
-								  request.getRequestDispatcher("/login.jsp").forward(request, response);
+								  request.getRequestDispatcher("login.jsp").forward(request, response);
 							  }
 							  boolean check= act.checkPass(pass); //Check if it exists and good password
 							  if(check==false) {
-								  
 								  message="INCORRECT PASSWORD";
 								  request.setAttribute("message",message);
-								  request.getRequestDispatcher("/login.jsp").forward(request, response);
+								  request.getRequestDispatcher("login.jsp").forward(request, response);
 							  }
 							  else {
 								  session.setAttribute("user", act); //Keep data in the request
 								  session.setAttribute("userLogged", act.getMail()); //Keep data in the session
 								  session.setAttribute("wlist", act.getWhish()); //Keep data in the session
 								  //session.setAttribute("cart", act.getShopping()); //Keep data in the session
-								  request.getRequestDispatcher("/initPage.jsp").forward(request, response);
+								  request.getRequestDispatcher("initPage.jsp").forward(request, response);
 						  }
 					  }
 				  }
@@ -375,12 +374,12 @@ package onlineJavaCode;
 //						
 //					}
 //				}
-//				*/
+//				
 				else if(path.compareTo("/checkout.jsp")==0) {
 					message="SHOP DEVELOPED";
 					request.setAttribute("message",message);
 					request.getRequestDispatcher("/thankyou.jsp").forward(request, response);
-				}
+				}*/
 			  }
 
 		/*private boolean checkFormat(String email,String name, String surname, String password, String phone,

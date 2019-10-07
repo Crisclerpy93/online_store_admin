@@ -55,13 +55,12 @@
 		</div>
 
 		<div class="site-section">
+		<form action="/admController" method="post">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<h2 class="h3 mb-3 text-black">What would you want to manage?</h2>
 					</div>
-					<div class="container">
-					<form action="/admController" method="post">
 					<div class="col-md-4">
 							<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
@@ -92,11 +91,9 @@
 								</div>
 						</div>
 					</div>
-					</form>
-					</div>
-					
 				</div>
 			</div>
+		</form>
 		</div>
 
 		<footer class="site-footer border-top">

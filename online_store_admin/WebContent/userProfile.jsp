@@ -145,7 +145,7 @@
                   <div class="col-md-6">
                 <h2>Name: </h2> <%= profile.getName() %>
 				<h2>Surname: </h2> <%= profile.getSurname()%>
-				<h2>Username: </h2> <%= profile.getUsername()%>
+				<h2>Username: </h2> <%= profile.getName()%>
 				<h2>Email: </h2> <%= profile.getMail()%>
 				<h2>Address: </h2> <%= profile.getAddress()%>
 				
