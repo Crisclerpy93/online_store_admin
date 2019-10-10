@@ -62,9 +62,9 @@
 					</div>
 					<div class="col-md-12">
 						<%
-							if (request.getAttribute("message") != null) {
+							if (session.getAttribute("message") != null) {
 						%>
-						<p><%=request.getAttribute("message")%></p>
+						<p><%=session.getAttribute("message")%></p>
 						<%
 							}
 						%>
