@@ -57,7 +57,7 @@ package onlineJavaCode;
 		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 		 */
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				session = request.getSession();
+			session = request.getSession();
 			// TODO Auto-generated method stub
 				String path=request.getHeader("referer");
 				  String [] arr=path.split("/");
@@ -69,33 +69,37 @@ package onlineJavaCode;
 					  if(path.compareTo("login.jsp")==0) {
 						  String regex = "^(.+)@(.+)$";
 						  Pattern pattern = Pattern.compile(regex);
-						  String user=request.getParameter("c_email");
+						  String admin=request.getParameter("c_email");
 						  String pass=request.getParameter("c_password");
-						  if(user==null) {
+						  if(admin==null) {
 							  response.sendRedirect("/online_store_admin/error.jsp");
 						  }
-						  Matcher matcher = pattern.matcher(user);
+						  Matcher matcher = pattern.matcher(admin);
 						  if(matcher.matches()==false) {
+							  System.out.println(admin);
 							  	message="BAD FORMAT EMAIL";
 								session.setAttribute("message",message);
 								response.sendRedirect("/online_store_admin/login.jsp");
 						  }
 						  else {
-							  user act=DM.getUser(user); //Check name in database
+							  administrator act=DM.getAdmin(admin); //Check name in database
 							  if(act==null) {
 								  message="USER IS NOT REGISTERED";
-								  request.setAttribute("message",message);
+								  session.setAttribute("message",message);
 								  response.sendRedirect("/online_store_admin/login.jsp");
 							  }else {
-							  boolean check= DM.getUser(user).checkPass(pass); //Check if it exists and good password
+							  boolean check= DM.getAdmin(admin).checkPass(pass); //Check if it exists and good password
 							  if(check==false) {
 								  message="INCORRECT PASSWORD";
-								  request.setAttribute("message",message);
+								  session.setAttribute("message",message);
 								  response.sendRedirect("/online_store_admin/login.jsp");
 							  }
 							  else {
-								  session.setAttribute("user", act); //Keep data in the request
-								  session.setAttribute("userLogged", act.getMail()); //Keep data in the session
+								  /*String adminName = DM.getAdmin(admin).getName();
+								  message="Welcome "+adminName;
+								  session.setAttribute("message",message);*/
+								  session.setAttribute("admin", act); //Keep data in the request
+								  session.setAttribute("adminLogged", act.getMail()); //Keep data in the session
 								  response.sendRedirect("/online_store_admin/initPage.jsp");
 						  }
 							  }

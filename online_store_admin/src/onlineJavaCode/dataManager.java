@@ -29,6 +29,11 @@ public class dataManager {
 		if(dbase == null) dbase = new fakeDatabase();
 	}
 	
+	public administrator getAdmin(String mail){
+		//Do the query -- First delivery extract admin using fakeDB method
+		return dbase.retrieveAdminByMail(mail);
+	}
+	
 	/**
 	 * Used to retrieve one user using its mail
 	 * @return The requested user or null in case it does not exist

@@ -14,6 +14,7 @@ public class fakeDatabase {
 	//ArrayList of products
 	private ArrayList<product> productList;
 	
+	private administrator administrator;
 	
 	/**
 	 * Constructor: Initializates the database inserting some fake records for testing
@@ -21,11 +22,13 @@ public class fakeDatabase {
 	
 	public fakeDatabase() {
 		
+		administrator =  new administrator("Francisco","fran@admin.es","6891234");
+		
 		//Create arrays
 		userList = new ArrayList<user>();
 		productList = new ArrayList<product>();
 		
-		user user1 =  new user("Pedro", "Martinez", "651669897", "Calle uc3m", "pepe@mail", "1234", null, false);
+		user user1 =  new user("Pedro", "Martinez", "651669897", "Calle uc3m", "pepe@mail", "123456789", null, false);
 		user user2 =  new user("Alicia", "Martinez", "651269897", "Avenida uc3m", "ali@mail", "1264", null, true);
 		user user3 =  new user("Juan", "Martinez", "651669797", "Calle Sabatini", "juan@mail", "2234", null, false);
 		user user4 =  new user("Paco", "Martinez", "651669497", "Calle ucm", "paco@mail", "1244", null, false);
@@ -72,6 +75,16 @@ public class fakeDatabase {
 		productList.add(product8);
 		productList.add(product9);
 		productList.add(product10);
+	}
+	
+	/**
+	 * Gets the administrator from the database.
+	 * @param mail Email to search
+	 * @return The requested administrator if exist or null otherwise
+	 */
+	public administrator retrieveAdminByMail(String mail) {
+		if(administrator.getMail().equals(mail)) return administrator;
+		else return null;
 	}
 	
 	/**
