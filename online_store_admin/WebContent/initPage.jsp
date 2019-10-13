@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java"%>
+<%@page language="java" import="onlineJavaCode.administrator"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,15 +58,16 @@
 		<form action="/admController" method="post">
 			<div class="container">
 				<div class="row">
+				<%administrator admin = (onlineJavaCode.administrator)session.getAttribute("admin");%>
 					<div class="col-md-12">
-						<h2 class="h3 mb-3 text-black">What would you want to manage?</h2>
+						<h2 class="h3 mb-3 text-black">Welcome <%= admin.getName() %>, what would you want to manage?</h2>
 					</div>
 					<div class="col-md-4">
 							<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
 									<div class="col-lg-12">
-										<input type="button" class="btn btn-primary btn-lg btn-block"
-											name="userList" value="usersList">
+										<a href="userList.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
+											name="userList" value="usersList"></a>
 									</div>
 								</div>
 							</div>
@@ -75,8 +76,8 @@
 						<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
 									<div class="col-lg-12">
-										<input type="button" class="btn btn-primary btn-lg btn-block"
-											name="productList" value="productsList">
+										<a href="productList.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
+											name="productList" value="productsList"></a>
 									</div>
 								</div>
 						</div>
@@ -85,8 +86,9 @@
 						<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
 									<div class="col-lg-12">
-										<input type="button" class="btn btn-primary btn-lg btn-block"
-											name="mailBox" value="mailBox">
+									<!-- CAMBIAR CUANDO TENGAMOS EL CORREO CONFIGURADO -->
+										<a href="error.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
+											name="mailBox" value="mailBox"></a>
 									</div>
 								</div>
 						</div>

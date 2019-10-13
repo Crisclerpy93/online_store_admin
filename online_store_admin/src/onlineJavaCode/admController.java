@@ -95,14 +95,28 @@ package onlineJavaCode;
 								  response.sendRedirect("/online_store_admin/login.jsp");
 							  }
 							  else {
-								  /*String adminName = DM.getAdmin(admin).getName();
-								  message="Welcome "+adminName;
-								  session.setAttribute("message",message);*/
+								  //String adminName = DM.getAdmin(admin).getName();
+								  //message="Welcome "+adminName;
+								  //session.setAttribute("message",message);
 								  session.setAttribute("admin", act); //Keep data in the request
 								  session.setAttribute("adminLogged", act.getMail()); //Keep data in the session
 								  response.sendRedirect("/online_store_admin/initPage.jsp");
 						  }
 							  }
+					  }
+				  }else if(path.compareTo("initPage.jsp")==0) {
+					  String admin = request.getParameter("c_email");
+					  //String pass = request.getParameter("c_password");
+					  if(admin==null) {
+						  request.getRequestDispatcher("/error.jsp").forward(request, response); //error checking
+					  }else {
+					  String adminName = DM.getAdmin(admin).getName();
+					  message="Welcome "+adminName;
+					  session.setAttribute("message",message);
+					  administrator act=DM.getAdmin(admin);
+					  session.setAttribute("admin", act); //Keep data in the request
+					  session.setAttribute("adminLogged", act.getMail()); //Keep data in the session
+					  response.sendRedirect("/online_store_admin/initPage.jsp");
 					  }
 				  }
 	
