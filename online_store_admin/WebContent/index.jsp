@@ -9,7 +9,7 @@ te lleva a nueva pagina con toda su info donde puedes eliminar/modificar))/
 ()--> 
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Alispeed &mdash; Administrator mode</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

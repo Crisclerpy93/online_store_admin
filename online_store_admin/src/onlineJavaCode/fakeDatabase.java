@@ -75,6 +75,9 @@ public class fakeDatabase {
 		productList.add(product8);
 		productList.add(product9);
 		productList.add(product10);
+		
+		administrator.setProducts(productList);
+		administrator.setUsers(userList);
 	}
 	
 	/**
