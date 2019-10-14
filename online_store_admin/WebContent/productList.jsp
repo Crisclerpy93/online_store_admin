@@ -1,10 +1,10 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" %>
+<%@page language="java" import="onlineJavaCode.product" import="java.util.ArrayList" import="java.util.Iterator"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <title>Alispeed &mdash; Administrator mode</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -42,173 +42,64 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.jsp">Admnistrator</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Products List</strong></div>
+          <div class="col-md-12 mb-0"><a href="initPage.jsp">Admnistrator</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Products List</strong></div>
         </div>
       </div>
     </div>
 
     <div class="site-section">
       <div class="container">
-
         <div class="row mb-7">
-            <!-- <div class="row">
-              <div class="col-md-12 mb-5">
-                <div class="d-flex">
-                
-                </div>
-              </div>
-            </div> -->
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+        	<form class="col-md-12"  action="/online_store_admin/admController"method="post">
+          <% ArrayList <product> plist=(ArrayList<product>) session.getAttribute("plist");
+        %>
+            <div class="site-blocks-table">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-remove">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
 
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+                  <% for(product newProduct : plist){ %>
+                    <td class="product-thumbnail">
+                   <img src=" <%=newProduct.getImagePath() %>" alt="Image" class="img-fluid">
+                     </td>
+                    <td class="product-name">
+                      <h2 class="h5 text-black"><%=newProduct.getName() %></h2>
+                    </td>
+                    <td><%=newProduct.getPrice() %></td>
+                    <td>
+                      <div class="input-group mb-3" style="max-width: 120px;">
+                        <div class="input-group-prepend">
+                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" value="1" name="" id="<%=newProduct.getName()%>">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                        </div>
+                      </div>
 
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">T-Shirt Mockup</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Corater</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Tank Top</a></h3>
-                    <p class="mb-0">Finding perfect t-shirt</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
+                    </td>
+                    <td>
+ 					     <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="wButton" >X</button>
+                    </td>
 
-              <div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-                <div class="block-4 text-center border">
-                  <figure class="block-4-image">
-                    <a href="shop-single.jsp"><img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-                  </figure>
-                  <div class="block-4-text p-4">
-                    <h3><a href="shop-single.jsp">Polo Shirt</a></h3>
-                    <p class="mb-0">Finding perfect products</p>
-                    <p class="text-primary font-weight-bold">$50</p>
-                  </div>
-                </div>
-              </div>
-            <div class="row" data-aos="fade-up">
-            <div class="col-md-25 order-1 mb-5 mb-md-0">
-             		<input type="button" class="btn btn-primary btn-lg btn-block" name="AddNewProduct" value="Add New PRoduct">
-              	  </div>
+
+                  </tr>
+              <% } %>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+        <div class="row" data-aos="fade-up">
               <div class="col-md-12 text-center">
                 <div class="site-block-27">
                   <ul>
@@ -223,8 +114,6 @@
                 </div> 
               </div>  
             </div>
-        
-        </div>
       </div>
     </div>
 
