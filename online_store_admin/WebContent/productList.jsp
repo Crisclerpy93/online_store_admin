@@ -62,6 +62,7 @@
                     <th class="product-price">Price</th>
                     <th class="product-quantity">Quantity</th>
                     <th class="product-remove">Remove</th>
+                    <th class="product-modify">Modify</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,19 +77,16 @@
                     </td>
                     <td><%=newProduct.getPrice() %></td>
                     <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" name="" id="<%=newProduct.getName()%>">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
-
+                        <input type="text" class="form-control text-center" value="<%=newProduct.getStock()%>" name="" id="<%=newProduct.getName()%>">
                     </td>
                     <td>
- 					     <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="wButton" >X</button>
+ 					    <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="wButton" >
+ 					     X</button>
+                    </td>
+                     <td>
+ 					     <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="mButton" >
+ 					     <a href="modifyProduct.jsp">
+ 					     O</a></button>
                     </td>
 
 
