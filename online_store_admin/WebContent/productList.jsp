@@ -84,9 +84,8 @@
  					     X</button>
                     </td>
                      <td>
- 					     <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="mButton" >
- 					     <a href="modifyProduct.jsp">
- 					     O</a></button>
+ 					     <button class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="mButton">
+ 					     O</button>
                     </td>
 
 

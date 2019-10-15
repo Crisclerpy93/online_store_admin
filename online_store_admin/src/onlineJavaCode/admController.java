@@ -111,8 +111,16 @@ import com.sun.tools.ws.wsdl.document.Output;
 					  }else if(path.compareTo("productList.jsp")==0) {
 						  String admin = (String) session.getAttribute("adminLogged");
 						  String act = request.getParameter("wButton");
-						  if(admin==null || act==null) {
+						  String act2 =  request.getParameter("mButton");
+						  if((admin==null || act==null) && (admin==null || act2==null)){
 							  request.getRequestDispatcher("/error.jsp").forward(request, response); //error checking
+						  }else if(act2!=null) {
+							  String [] values = act2.split("\\+");
+							  String product = values[0].trim();
+							  float price = Float.parseFloat(values[1]);
+							  product p = DM.getProduct(product, price);
+							  session.setAttribute("product", p);
+							  response.sendRedirect("/online_store_admin/modifyProduct.jsp");
 						  }else {
 							  String [] values = act.split("\\+");
 							  String product = values[0].trim();
@@ -133,7 +141,10 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  response.sendRedirect("/online_store_admin/productList.jsp");
 							  }
 						  }
-					  }/*else if(path.compareTo("userList.jsp")==0) {
+					  }else if(path.compareTo("modifyProduct.jsp")==0) {
+						  
+					  }
+					  /*else if(path.compareTo("userList.jsp")==0) {
 						  String admin = (String) session.getAttribute("adminLogged");
 						  String act = request.getParameter("wButton");
 						  String act2 = request.getParameter("mButton");
