@@ -54,13 +54,13 @@ public class fakeDatabase {
 		
 		
 		//Insert some products
-		product product1 = new product("televisión",789 , "Tele", "Televisión",null , "tecnología", "hogar", "electrodoméstico", 3, user2);
-		product product2 = new product("camiseta",50 , "cami", "Camiseta",null , "moda", "ropa", "parte de arriba", 2, user5);
-		product product3 = new product("zapatillas",80 , "zapas", "Zapatillas",null , "ropa", "hogar", "calzado", 4, user8);
-		product product4 = new product("tenedor",7 , "tene", "Tenedor",null , "cocina", "hogar", "cubertería", 3, user8);
-		product product5 = new product("dvd",20 , "dvd", "Dvd",null , "tecnología", "hogar", "electrodoméstico", 7, user5);
-		product product6 = new product("movil",1400 , "movil", "Movil",null , "tecnología", "hogar", "electrodoméstico", 20, user2);
-		product product7 = new product("blueray",9 , "blue", "Blueray",null , "tecnología", "hogar", "electrodoméstico", 3, user5);
+		product product1 = new product("cascos AirBods",20 , "Cascos musica", "ESTAN TO GUAPOS COMPRALOS","/online_store/images_tiw/airBods.jpg" , "tecnología", "hogar", "electrodoméstico", 3, user1);
+		product product2 = new product("cascos AirPods",150 , "Cascos de apple musica", "compra 3","/online_store/images_tiw/airpods.jpg" , "tecnología", "hogar", "electrodoméstico", 2, user1);
+		product product3 = new product("Cascos Sony",80 , "Cascos sony de alta fidelidad", "Cascos sony de alta fidelidad","/online_store/images_tiw/cascossony.jpg" , "tecnología", "hogar", "electrodoméstico", 4, user1);
+		product product4 = new product("Calcetines",70, "Calcetines de deportes", "Calcetines de deportes en diferentes colores y tallas","/online_store/images_tiw/calcetines.jpg" , "Deportes", "Complementos", "Calzado", 3, user1);
+		product product5 = new product("Zapatillas deporte",70 , "Zapatillas modernas de deporte", "Estas zapatillas de alto rendimiento te llevarana  a un nivel superior","/online_store/images_tiw/zapasflamas.jpg" , "Deportes", "Complementos", "Calzado", 7, user1);
+		product product6 = new product("FIFA 20 PS4",70 , "FIFA 20 para PS4", "Gracias al motor Frostbite, EA SPORTS FIFA 20 muestra las dos caras del deporte rey: la prestigiosa competición profesional y el fútbol callejero más auténtico con la nueva experiencia EA SPORTS VOLTA.","/online_store/images_tiw/fifa.jpg" , "tecnología", "consolas", "videojuegos", 20, user1);
+		product product7 = new product("Dvd Pelicula aladino",9 , "Pelicula extrajera", "Alladdin vuelve con su mejor pelicula","/online_store/images_tiw/aladdin.jpg" , "Multimedia", "hogar", "Pelicula", 3, user1);
 		product product8 = new product("plato", 10, "plato", "plato llano",null , "cocina", "hogar", "menaje", 10, user5);
 		product product9 = new product("mantel",8 , "mantel", "mantel cuadros",null , "cocina", "hogar", "menaje", 21, user2);
 		product product10 = new product("cuchara",8 , "cuchara", "cuchara de meta",null , "cocina", "hogar", "cubertería", 7, user8);

@@ -57,11 +57,45 @@
          <% product product = (product)session.getAttribute("product");
         %>
           <div class="col-md-6">
-            <img src=" <%=product.getImagePath() %>" alt="Image" class="img-fluid">
-            <p><strong class="text-primary h5">Long Description:</strong> <%=product.getLongDesc()%></p>
+            <div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Product Name </label> 
+					<input type="text" class="form-control" id="c_name" name="c_name">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Long Description </label> 
+					<input type="text" class="form-control" id="c_longDesc" name="c_longDesc">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Short Description </label> 
+					<input type="text" class="form-control" id="c_shortDesc" name="c_shortDesc">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Price </label> 
+					<input type="text" class="form-control" id="c_price" name="c_price">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Stock </label> 
+					<input type="text" class="form-control" id="c_stock" name="c_stock">
+			</div><div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Seller </label> 
+					<input type="text" class="form-control" id="c_seller" name="c_seller">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Categories </label> 
+					<input type="text" class="form-control" id="c_categories" name="c_categories">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_fname" class="text-black">New Image </label> 
+					<input type="file" class="form-control" id="c_image" name="c_image">
+			</div>
+			<div class="col-lg-12">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
+			</div>
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><%=product.getName() %></h2>
+            <p><img src=" <%=product.getImagePath() %>" alt="Image" class="img-fluid"></p>
+            <p><strong class="text-primary h6">Long Description:</strong> <%=product.getLongDesc()%></p>
             <p><strong class="text-primary h6">Short Description:</strong> <%=product.getShortDesc()%></p>
             <p><strong class="text-primary h6">Price:</strong> <%=product.getPrice()%></p>
             <p><strong class="text-primary h6">Stock:</strong> <%=product.getStock()%></p>
@@ -70,8 +104,6 @@
             <% for(String categories : product.getCategories()){ %>
 			<p><%=categories%></p>
             <% } %>
-            <p><a href="cart.jsp" class="buy-now btn btn-sm btn-primary">Add To Cart</a></p>
-
           </div>
         </form>
       </div>
