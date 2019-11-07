@@ -222,7 +222,7 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  product p = DM.getProduct(product, price);
 								  session.setAttribute("product", p);
 								  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
-								  response.sendRedirect("/online_store_admin/modifyProduct.jsp");
+								  response.sendRedirect("/online_store_admin/modifyUser.jsp");
 							  }else {
 								  String [] values = act.split("\\+");
 								  String product = values[0].trim();
@@ -236,11 +236,11 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  }else if(p.getStock()>1){
 									  p.doSale();
 									  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
-									  response.sendRedirect("/online_store_admin/productList.jsp");
+									  response.sendRedirect("/online_store_admin/userList.jsp");
 								  }else{
 									  DM.getAdmin(admin).deleteProduct(p);
 									  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
-									  response.sendRedirect("/online_store_admin/productList.jsp");
+									  response.sendRedirect("/online_store_admin/userList.jsp");
 								  }
 							  }
 						  }else if(path.compareTo("modifyUser.jsp")==0) {
