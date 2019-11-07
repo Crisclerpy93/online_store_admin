@@ -53,43 +53,48 @@
 
     <div class="site-section">
       <div class="container">
+      	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
         <form class="row" action="/online_store_admin/admController" method="post">
          <% product product = (product)session.getAttribute("product");
         %>
           <div class="col-md-6">
-            <div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Product Name </label> 
+            <!--<div class="col-lg-12">
+				<label for="c_name" class="text-black">New Product Name </label> 
 					<input type="text" class="form-control" id="c_name" name="c_name">
-			</div>
+			</div> -->
 			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Long Description </label> 
+				<label for="c_longDesc" class="text-black">New Long Description </label> 
 					<input type="text" class="form-control" id="c_longDesc" name="c_longDesc">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Short Description </label> 
+				<label for="c_shortDesc" class="text-black">New Short Description </label> 
 					<input type="text" class="form-control" id="c_shortDesc" name="c_shortDesc">
 			</div>
+			<!-- <div class="col-lg-12">
+				<label for="c_price" class="text-black">New Price </label>
+				<span class="text-danger">Positive float number</span> 
+					<input type="number" class="form-control" id="c_price" name="c_price" min=0.00 step=.01 value=0.00>
+			</div> -->
 			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Price </label> 
-					<input type="text" class="form-control" id="c_price" name="c_price">
-			</div>
-			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Stock </label> 
-					<input type="text" class="form-control" id="c_stock" name="c_stock">
+				<label for="c_stock" class="text-black">New Stock </label> 
+				<span class="text-danger">Positive integer number</span>
+					<input type="number" class="form-control" id="c_stock" name="c_stock" min=0 value=0>
 			</div><div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Seller </label> 
-					<input type="text" class="form-control" id="c_seller" name="c_seller">
+				<label for="c_seller" class="text-black">New Seller </label>
+				<span class="text-danger">Previous will be set if not found</span> 
+					<input type="email" class="form-control" id="c_seller" name="c_seller">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Categories </label> 
+				<label for="c_categories" class="text-black">New Categories </label>
+				<span class="text-danger">Max 3 separated by blanks</span>
 					<input type="text" class="form-control" id="c_categories" name="c_categories">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_fname" class="text-black">New Image </label> 
+				<label for="c_image" class="text-black">New Image </label> 
 					<input type="file" class="form-control" id="c_image" name="c_image">
 			</div>
 			<div class="col-lg-12">
-				<input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" name="modifyProduct" value="send">
 			</div>
           </div>
           <div class="col-md-6">

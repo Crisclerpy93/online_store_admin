@@ -16,7 +16,8 @@ public class product {
 	public final static int S_SUBCATEGORY = 2;
 	
 	//Product fields
-	private final String name; //Name cannot be changed TODO: Review this
+	//private final String name; //Name cannot be changed TODO: Review this
+	private String name;
 	private float price;
 	private String shortDesc;
 	private String longDesc;
@@ -130,7 +131,14 @@ public class product {
 	public String getName() {
 		return name;
 	}
-
+	
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	/**
 	 * @return the categories
 	 */
@@ -155,6 +163,13 @@ public class product {
 	 */
 	public int getStock() {
 		return stock;
+	}
+	
+	/**
+	 * @param the stock to set
+	 */
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 	
 	/**

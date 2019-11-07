@@ -63,7 +63,7 @@ public class administrator {
 	} */
 	
 	/**
-	 * Deletes an product from the list. 
+	 * Deletes a product from the list. 
 	 * NOTE: to obtain the product using name and price look for it in the database before.
 	 * @param toDelete product to delete
 	 * @return true if the product was found and deleted

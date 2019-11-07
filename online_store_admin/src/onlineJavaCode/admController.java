@@ -114,12 +114,14 @@ import com.sun.tools.ws.wsdl.document.Output;
 						  String act2 =  request.getParameter("mButton");
 						  if((admin==null || act==null) && (admin==null || act2==null)){
 							  request.getRequestDispatcher("/error.jsp").forward(request, response); //error checking
-						  }else if(act2!=null) {
+						  }
+						  else if(act2!=null) {
 							  String [] values = act2.split("\\+");
 							  String product = values[0].trim();
 							  float price = Float.parseFloat(values[1]);
 							  product p = DM.getProduct(product, price);
 							  session.setAttribute("product", p);
+							  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
 							  response.sendRedirect("/online_store_admin/modifyProduct.jsp");
 						  }else {
 							  String [] values = act.split("\\+");
@@ -142,7 +144,172 @@ import com.sun.tools.ws.wsdl.document.Output;
 							  }
 						  }
 					  }else if(path.compareTo("modifyProduct.jsp")==0) {
+						  String act = request.getParameter("modifyProduct");
+						  String admin = (String) session.getAttribute("adminLogged");
+						  product p = (product) session.getAttribute("product");
+						  if(act==null || admin==null || p==null) {
+							  request.getRequestDispatcher("/error.jsp").forward(request, response);
+						  }else{
+							  //String name = request.getParameter("c_name");
+							  //if(name.isEmpty()) name = p.getName();
+						  	  String name = p.getName();
+							  String longDesc = request.getParameter("c_longDesc");
+							  if(longDesc.isEmpty()) longDesc= p.getLongDesc();
+							  String shortDesc = request.getParameter("c_shortDesc");
+							  if(shortDesc.isEmpty()) shortDesc = p.getShortDesc();
+							  //String price = request.getParameter("c_price");
+							  //float fprice = Float.parseFloat(price);
+							  //if(fprice==0.00) fprice= p.getPrice();
+							  float fprice= p.getPrice();
+							  String stock = request.getParameter("c_stock");
+							  int fstock = Integer.parseInt(stock);
+							  if(fstock==0) fstock = p.getStock();
+							  String seller = request.getParameter("c_seller");
+							  user newSeller;
+							  if(!seller.isEmpty()) {
+								  newSeller = DM.getUser(seller);
+								  if(newSeller==null) {
+									  newSeller = p.getSeller();
+								  }
+							  }else {
+								 newSeller = p.getSeller();
+							  }
+							  String categories = request.getParameter("c_categories");
+							  String [] posibleCategories;
+							  String [] newCategories = new String [3];
+							  if(!categories.isEmpty()) {
+								  posibleCategories = categories.split(" ");
+								  int pos = 0;
+								  for(String category: posibleCategories) {
+									  newCategories[pos] = category;
+									  pos++;
+									  }
+								  while(pos<newCategories.length){
+									  newCategories[pos] = "";
+									  pos++;
+								  }
+							  }else {
+								  newCategories = p.getCategories();
+							  }
+							  String image = request.getParameter("c_image");
+							  if(image==null) image = p.getImagePath();
+							  product updated=new product(name, fprice, shortDesc, longDesc, image, newCategories[0], newCategories[1], newCategories[2], fstock, newSeller);
+							  DM.forceProductInsert(updated);
+							  //p =DM.getProduct(name, fprice);
+							  //session.setAttribute("product", p);
+							  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
+							  if(plist==null) {
+								  message="SOMETHING UNEXPECTED HAPPENED";
+								  session.setAttribute("message", message);
+								  request.getRequestDispatcher("/error.jsp").forward(request, response);
+							  }	  
+							  session.setAttribute("plist", plist);
+							  response.sendRedirect("/online_store_admin/productList.jsp");
+							  }
 						  
+						  /*CAMBIAR A PARTIR DE AQUI!!*/
+						  }else if(path.compareTo("userList.jsp")==0) {
+							  String admin = (String) session.getAttribute("adminLogged");
+							  String act = request.getParameter("wButton");
+							  String act2 =  request.getParameter("mButton");
+							  if((admin==null || act==null) && (admin==null || act2==null)){
+								  request.getRequestDispatcher("/error.jsp").forward(request, response); //error checking
+							  }
+							  else if(act2!=null) {
+								  String [] values = act2.split("\\+");
+								  String product = values[0].trim();
+								  float price = Float.parseFloat(values[1]);
+								  product p = DM.getProduct(product, price);
+								  session.setAttribute("product", p);
+								  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+								  response.sendRedirect("/online_store_admin/modifyProduct.jsp");
+							  }else {
+								  String [] values = act.split("\\+");
+								  String product = values[0].trim();
+								  float price = Float.parseFloat(values[1]);
+								  product p = DM.getProduct(product, price);
+								  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
+								  if(plist==null) {
+									  message="THERE ARE NO AVAILABLE PRODUCTS";
+									  session.setAttribute("message", message);
+									  request.getRequestDispatcher("/error.jsp").forward(request, response);
+								  }else if(p.getStock()>1){
+									  p.doSale();
+									  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+									  response.sendRedirect("/online_store_admin/productList.jsp");
+								  }else{
+									  DM.getAdmin(admin).deleteProduct(p);
+									  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+									  response.sendRedirect("/online_store_admin/productList.jsp");
+								  }
+							  }
+						  }else if(path.compareTo("modifyUser.jsp")==0) {
+							  String act = request.getParameter("modifyProduct");
+							  String admin = (String) session.getAttribute("adminLogged");
+							  product p = (product) session.getAttribute("product");
+							  if(act==null || admin==null || p==null) {
+								  request.getRequestDispatcher("/error.jsp").forward(request, response);
+							  }else{
+								  //String name = request.getParameter("c_name");
+								  //if(name.isEmpty()) name = p.getName();
+							  	  String name = p.getName();
+								  String longDesc = request.getParameter("c_longDesc");
+								  if(longDesc.isEmpty()) longDesc= p.getLongDesc();
+								  String shortDesc = request.getParameter("c_shortDesc");
+								  if(shortDesc.isEmpty()) shortDesc = p.getShortDesc();
+								  //String price = request.getParameter("c_price");
+								  //float fprice = Float.parseFloat(price);
+								  //if(fprice==0.00) fprice= p.getPrice();
+								  float fprice= p.getPrice();
+								  String stock = request.getParameter("c_stock");
+								  int fstock = Integer.parseInt(stock);
+								  if(fstock==0) fstock = p.getStock();
+								  String seller = request.getParameter("c_seller");
+								  user newSeller;
+								  if(!seller.isEmpty()) {
+									  newSeller = DM.getUser(seller);
+									  if(newSeller==null) {
+										  newSeller = p.getSeller();
+									  }
+								  }else {
+									 newSeller = p.getSeller();
+								  }
+								  String categories = request.getParameter("c_categories");
+								  String [] posibleCategories;
+								  String [] newCategories = new String [3];
+								  if(!categories.isEmpty()) {
+									  posibleCategories = categories.split(" ");
+									  int pos = 0;
+									  for(String category: posibleCategories) {
+										  newCategories[pos] = category;
+										  pos++;
+										  }
+									  while(pos<newCategories.length){
+										  newCategories[pos] = "";
+										  pos++;
+									  }
+								  }else {
+									  newCategories = p.getCategories();
+								  }
+								  String image = request.getParameter("c_image");
+								  if(image==null) image = p.getImagePath();
+								  product updated=new product(name, fprice, shortDesc, longDesc, image, newCategories[0], newCategories[1], newCategories[2], fstock, newSeller);
+								  DM.forceProductInsert(updated);
+								  //p =DM.getProduct(name, fprice);
+								  //session.setAttribute("product", p);
+								  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
+								  if(plist==null) {
+									  message="SOMETHING UNEXPECTED HAPPENED";
+									  session.setAttribute("message", message);
+									  request.getRequestDispatcher("/error.jsp").forward(request, response);
+								  }	  
+								  session.setAttribute("plist", plist);
+								  response.sendRedirect("/online_store_admin/productList.jsp");
+								  }
+							  }
+					  
+					  
+					  
 					  }
 					  /*else if(path.compareTo("userList.jsp")==0) {
 						  String admin = (String) session.getAttribute("adminLogged");
@@ -167,7 +334,7 @@ import com.sun.tools.ws.wsdl.document.Output;
 							  }
 						  }
 					  }*/
-	
-			  	}
+						
+			  	
 
 	}
