@@ -11,15 +11,15 @@ public class administrator {
 	private String name;
 	private String mail;
 	private String passHash;
-	private ArrayList<product> productlist;
-	private ArrayList<user> userlist;
+	//private ArrayList<product> productlist;
+	//private ArrayList<user> userlist;
 
 	administrator(String name, String mail, String pass){
 		this.name = name;
 		this.mail = mail;
 		this.passHash = DigestUtils.sha256Hex(pass);
-		this.productlist = new ArrayList<product>();
-		this.userlist = new ArrayList<user>();
+		//this.productlist = new ArrayList<product>();
+		//this.userlist = new ArrayList<user>();
 	}
 	
 	public String getName() {
@@ -38,19 +38,19 @@ public class administrator {
 	/**
 	 * @param name of products list
 	*/
-	public void setProducts(ArrayList<product> list){
-		this.productlist = list;
-	} 
+	//public void setProducts(ArrayList<product> list){
+	//	this.productlist = list;
+	//} 
 	
 	/**
 	 * @return productlist
 	*/
-	public ArrayList<product> getProducts(){
-		//Return the set as an array (more easy to manage)
-		ArrayList<product>_ret = new ArrayList<product>();
-		_ret.addAll(productlist);
-		return _ret;
-	} 
+	//public ArrayList<product> getProducts(){
+	//	//Return the set as an array (more easy to manage)
+	//	ArrayList<product>_ret = new ArrayList<product>();
+	//	_ret.addAll(productlist);
+	//	return _ret;
+	//} 
 	
 	/**
 	 * Adds a product to the list
@@ -68,27 +68,27 @@ public class administrator {
 	 * @param toDelete product to delete
 	 * @return true if the product was found and deleted
 	*/
-	public boolean deleteProduct(product toDelete) {
+	//public boolean deleteProduct(product toDelete) {
 		//Delete from the set
-		return productlist.remove(toDelete);
-	} 
+	//	return productlist.remove(toDelete);
+	//} 
 	
 	/**
 	 * @param name of users list
 	*/
-	public void setUsers(ArrayList<user> list){
-		this.userlist = list;
-	} 
+	//public void setUsers(ArrayList<user> list){
+	//	this.userlist = list;
+	//} 
 	
 	/**
 	 * @return userlist
 	*/
-	public ArrayList<user> getUsers(){
+	//public ArrayList<user> getUsers(){
 		//Return the set as an array (more easy to manage)
-		ArrayList<user>_ret = new ArrayList<user>();
-		_ret.addAll(userlist);
-		return _ret;
-	} 
+	//	ArrayList<user>_ret = new ArrayList<user>();
+	//	_ret.addAll(userlist);
+	//	return _ret;
+	//} 
 	
 	/**
 	 * Adds an user to the list
@@ -106,8 +106,8 @@ public class administrator {
 	 * @param toDelete user to delete
 	 * @return true if the user was found and deleted
 	 */
-	public boolean deleteUser(user toDelete) {
+	//public boolean deleteUser(user toDelete) {
 		//Delete from the set
-		return userlist.remove(toDelete);
-	} 
+	//	return userlist.remove(toDelete);
+	//} 
 }

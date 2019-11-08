@@ -102,8 +102,10 @@ import com.sun.tools.ws.wsdl.document.Output;
 									  //Keep data in the session
 									  session.setAttribute("admin", act); 
 									  session.setAttribute("adminLogged", act.getMail()); 
-									  session.setAttribute("plist", act.getProducts());
-									  session.setAttribute("ulist", act.getUsers());
+									  //session.setAttribute("plist", act.getProducts());
+									  //session.setAttribute("ulist", act.getUsers());
+									  session.setAttribute("plist", DM.getAllProducts());
+									  session.setAttribute("ulist", DM.getAllUsers());
 									  response.sendRedirect("/online_store_admin/initPage.jsp");
 								  }
 							  }
@@ -121,25 +123,25 @@ import com.sun.tools.ws.wsdl.document.Output;
 							  float price = Float.parseFloat(values[1]);
 							  product p = DM.getProduct(product, price);
 							  session.setAttribute("product", p);
-							  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+							  session.setAttribute("plist", DM.getAllProducts());
 							  response.sendRedirect("/online_store_admin/modifyProduct.jsp");
 						  }else {
 							  String [] values = act.split("\\+");
 							  String product = values[0].trim();
 							  float price = Float.parseFloat(values[1]);
 							  product p = DM.getProduct(product, price);
-							  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
+							  ArrayList<product> plist = DM.getAllProducts();
 							  if(plist==null) {
 								  message="THERE ARE NO AVAILABLE PRODUCTS";
 								  session.setAttribute("message", message);
 								  request.getRequestDispatcher("/error.jsp").forward(request, response);
 							  }else if(p.getStock()>1){
 								  p.doSale();
-								  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+								  session.setAttribute("plist", DM.getAllProducts());
 								  response.sendRedirect("/online_store_admin/productList.jsp");
 							  }else{
-								  DM.getAdmin(admin).deleteProduct(p);
-								  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
+								  DM.deleteProduct(p.getName(), p.getPrice());
+								  session.setAttribute("plist", DM.getAllProducts());
 								  response.sendRedirect("/online_store_admin/productList.jsp");
 							  }
 						  }
@@ -197,7 +199,7 @@ import com.sun.tools.ws.wsdl.document.Output;
 							  DM.forceProductInsert(updated);
 							  //p =DM.getProduct(name, fprice);
 							  //session.setAttribute("product", p);
-							  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
+							  ArrayList<product> plist = DM.getAllProducts();
 							  if(plist==null) {
 								  message="SOMETHING UNEXPECTED HAPPENED";
 								  session.setAttribute("message", message);
@@ -218,20 +220,20 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  String user = values[0].trim();
 								  user u = DM.getUser(user);
 								  session.setAttribute("user", u);
-								  session.setAttribute("ulist", DM.getAdmin(admin).getUsers());
+								  session.setAttribute("ulist", DM.getAllUsers());
 								  response.sendRedirect("/online_store_admin/userProfile.jsp");
 							  }else {
 								  String [] values = act.split("\\+");
 								  String user = values[0].trim();
 								  user u = DM.getUser(user);
-								  ArrayList<user> ulist = DM.getAdmin(admin).getUsers();
+								  ArrayList<user> ulist = DM.getAllUsers();
 								  if(ulist==null) {
 									  message="THERE ARE NO USERS";
 									  session.setAttribute("message", message);
 									  request.getRequestDispatcher("/error.jsp").forward(request, response);
 								  }else{
-									  DM.getAdmin(admin).deleteUser(u);
-									  session.setAttribute("ulist", DM.getAdmin(admin).getUsers());
+									  DM.deleteUser(u.getMail());
+									  session.setAttribute("ulist", DM.getAllUsers());
 									  response.sendRedirect("/online_store_admin/userList.jsp");
 								  }
 							  }
@@ -261,9 +263,7 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  //user(String uName, String uSurname, String uPhone, String uAddr, String uMail, String uPath, boolean uSell)
 								  user updated=new user(name, surname, phone, address, u.getMail(), image, bseller);
 								  DM.forceUserInsert(updated);
-								  //p =DM.getProduct(name, fprice);
-								  //session.setAttribute("product", p);
-								  ArrayList<user> ulist = DM.getAdmin(admin).getUsers();
+								  ArrayList<user> ulist = DM.getAllUsers();
 								  if(ulist==null) {
 									  message="SOMETHING UNEXPECTED HAPPENED";
 									  session.setAttribute("message", message);
@@ -277,30 +277,4 @@ import com.sun.tools.ws.wsdl.document.Output;
 					  
 					  
 					  }
-					  /*else if(path.compareTo("userList.jsp")==0) {
-						  String admin = (String) session.getAttribute("adminLogged");
-						  String act = request.getParameter("wButton");
-						  String act2 = request.getParameter("mButton");
-						  if(admin==null || act==null || act2==null) {
-							  request.getRequestDispatcher("/error.jsp").forward(request, response); //error checking
-						  }else {
-							  String [] values = act.split("\\+");
-							  String product = values[0].trim();
-							  float price = Float.parseFloat(values[1]);
-							  product p = DM.getProduct(product, price);
-							  ArrayList<product> plist = DM.getAdmin(admin).getProducts();
-							  if(plist==null) {
-								  message="THERE ARE NO AVAILABLE PRODUCTS";
-								  session.setAttribute("message", message);
-								  request.getRequestDispatcher("/error.jsp").forward(request, response);
-							  }else {
-								  DM.getAdmin(admin).deleteProduct(p);
-								  session.setAttribute("plist", DM.getAdmin(admin).getProducts());
-								  response.sendRedirect("/online_store_admin/productList.jsp");
-							  }
-						  }
-					  }*/
-						
-			  	
-
 	}
