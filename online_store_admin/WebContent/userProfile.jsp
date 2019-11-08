@@ -59,23 +59,23 @@
         %>
           <div class="col-md-6">
 			<div class="col-lg-12">
-				<label for="c_longDesc" class="text-black">New Name </label> 
-					<input type="text" class="form-control" id="c_name" name="c_longDesc">
+				<label for="c_name" class="text-black">New Name </label> 
+					<input type="text" class="form-control" id="c_name" name="c_name">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_shortDesc" class="text-black">New Surname </label> 
-					<input type="text" class="form-control" id="c_surname" name="c_shortDesc">
+				<label for="c_surname" class="text-black">New Surname </label> 
+					<input type="text" class="form-control" id="c_surname" name="c_surname">
 			</div>
 			<div class="col-lg-12">
 			<!--<div class="col-lg-12">
 				<label for="c_ename" class="text-black">New E-mail </label> 
 					<input type="email" class="form-control" id="c_ename" name="c_ename">
 			</div> -->
-				<label for="c_stock" class="text-black">New Phone Number </label> 
+				<label for="c_phone" class="text-black">New Phone Number </label> 
 					<input type="tel" class="form-control" id="c_phone" name="c_phone" value=111111111>
 			</div>
 			<div class="col-lg-12">
-				<label for="c_categories" class="text-black">New Address </label>
+				<label for="c_address" class="text-black">New Address </label>
 					<input type="text" class="form-control" id="c_address" name="c_address">
 			</div>
 			<div class="col-lg-12">

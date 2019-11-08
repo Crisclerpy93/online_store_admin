@@ -249,17 +249,17 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  //String email = request.getParameter("c_email");
 								  //if(email.isEmpty()) email = u.getMail();
 								  String phone= request.getParameter("c_phone");
-								  if(phone.isEmpty()) phone = u.getPhone();
+								  if(phone.equals("111111111")) phone = u.getPhone();
 								  String address= request.getParameter("c_address");
 								  if(address.isEmpty()) address = u.getAddress();
 								  String image = request.getParameter("c_image");
 								  if(image==null) image = u.getImagePath();
 								  String seller = request.getParameter("c_seller");
 								  boolean bseller;
-								  if(seller.equals("on")) bseller = true;
-								  else bseller = false;
-								  //user(String uName, String uSurname, String uPhone, String uAddr, String uMail, String uPass, String uPath, boolean uSell) {
-								  user updated=new user(name, surname, phone, address, u.getMail(), null, image, u.isSeller());
+								  if(seller==null) bseller = false;
+								  else bseller = true;
+								  //user(String uName, String uSurname, String uPhone, String uAddr, String uMail, String uPath, boolean uSell)
+								  user updated=new user(name, surname, phone, address, u.getMail(), image, bseller);
 								  DM.forceUserInsert(updated);
 								  //p =DM.getProduct(name, fprice);
 								  //session.setAttribute("product", p);
@@ -270,7 +270,7 @@ import com.sun.tools.ws.wsdl.document.Output;
 									  request.getRequestDispatcher("/error.jsp").forward(request, response);
 								  }	  
 								  session.setAttribute("ulist", ulist);
-								  response.sendRedirect("/online_store_admin/productList.jsp");
+								  response.sendRedirect("/online_store_admin/userList.jsp");
 								  }
 							  }
 					  
