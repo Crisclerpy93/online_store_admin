@@ -42,7 +42,7 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="initPage.jsp">Admnistrator</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Products List</strong></div>
+          <div class="col-md-12 mb-0"><a href="initPage.jsp">Admnistrator</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Users List</strong></div>
         </div>
       </div>
     </div>
@@ -59,33 +59,35 @@
                   <tr>
                     <th class="user-thumbnail">Image</th>
                     <th class="user-name">Name</th>
-                    <th class="user-surname">Surname</th>
                     <th class="user-number">Phone number</th>
-                    <th class="user-address">Address</th>
+                    <th class="user-address">Seller</th>
                     <th class="user-remove">Remove</th>
+                    <th class="product-modify">Modify</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
 
                   <% for(user newUser : ulist){ %>
-                    <td class="product-thumbnail">
+                    <td class="user-thumbnail">
                    <img src=" <%=newUser.getImagePath() %>" alt="Image" class="img-fluid">
                      </td>
-                    <td class="product-name">
+                    <td class="user-name">
                       <h2 class="h5 text-black"><%=newUser.getName() %></h2>
                     </td>
-                    <td><%=newUser.getSurname() %></td>
                     <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        
-                        <input type="text" class="form-control text-center" value="1" name="" id="<%=newUser.getName()%>">
-                        
+                      <div class="input-group mb-3" style="max-width: 120px;"> 
+                        <input type="text" class="form-control text-center" value="<%=newUser.getPhone() %>" name="" id="<%=newUser.getName()%>">  
                       </div>
-
                     </td>
+                    <td><%=newUser.isSeller() %></td>
                     <td>
- 					     <button  class="btn btn-primary btn-sm" value="<%=newUser.getName()%>+<%=newUser.getMail()%>" name="wButton" >X</button>
+ 					     <button  class="btn btn-primary btn-sm" value="<%=newUser.getMail() %>" name="wButton" >
+ 					     X</button>
+                    </td>
+                     <td>
+ 					     <button class="btn btn-primary btn-sm" value="<%=newUser.getMail() %>" name="mButton">
+ 					     O</button>
                     </td>
 
 
@@ -96,21 +98,6 @@
             </div>
           </form>
         </div>
-        <div class="row" data-aos="fade-up">
-              <div class="col-md-12 text-center">
-                <div class="site-block-27">
-                  <ul>
-                    <li><a href="#">&lt;</a></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&gt;</a></li>
-                  </ul>
-                </div> 
-              </div>  
-            </div>
       </div>
     </div>
 

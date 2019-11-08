@@ -41,7 +41,7 @@ public class user {
 
 	//Constructor 
 	user(String uName, String uSurname, String uPhone, String uAddr, String uMail, String uPass, String uPath, boolean uSell) {
-		
+
 		//Set fields
 		name = uName;
 		surname = uSurname;
@@ -60,6 +60,17 @@ public class user {
 		
 	}
 	
+	//Constructor for adminitrator modifications	
+	user(String uName, String uSurname, String uPhone, String uAddr, String uMail, String uPath, boolean uSell) {
+		name = uName;
+		surname = uSurname;
+		phone = uPhone;
+		address = uAddr;
+		mail = uMail;
+		imagePath = uPath;
+		isSeller = uSell;
+	}		
+			
 	//Setters and getters 
 	
 	/**

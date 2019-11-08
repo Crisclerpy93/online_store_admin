@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java"  import="onlineJavaCode.user"%>
+<%@page language="java" import="onlineJavaCode.user"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,191 +34,77 @@
 
             <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
               <div class="site-logo">
-                <a href="index.html" class="js-logo-clone">Alispeed</a>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-4 order-3 order-md-3 text-right">
-              <div class="site-top-icons">
-                <ul>
-                  <li><a href="#"><span class="icon icon-person"></span></a></li>
-                  <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
-                  <li>
-                    <a href="cart.html" class="site-cart">
-                      <span class="icon icon-shopping_cart"></span>
-                      <span class="count">2</span>
-                    </a>
-                  </li>
-                  <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
-                </ul>
+                <a href="index.jsp" class="js-logo-clone">Alispeed</a>
               </div>
             </div>
 
           </div>
         </div>
       </div>
-      <nav class="site-navigation text-right text-md-center" role="navigation">
-        <div class="container">
-          <ul class="site-menu js-clone-nav d-none d-md-block">
-            <li class="has-children active">
-              <a href="index.html">Home</a>
-            </li>
-                <li class="has-children">
-              				<a href="index.html">Categories</a>
-              					<ul class="dropdown">
-	              					<li class="has-children">
-	              						<a href="#">Menu One</a>
-	                 					<ul class="dropdown">
-	                    					<li><a href="#">Menu One</a></li>
-	                   						<li><a href="#">Menu Two</a></li>
-	                    					<li><a href="#">Menu Three</a></li>
-	                  					</ul>
-	                				</li>
-	                				<li class="has-children">
-	                					<a href="#">Menu Two</a>
-	                 					<ul class="dropdown">
-				                    		<li><a href="#">Menu One</a></li>
-				                    		<li><a href="#">Menu Two</a></li>
-				                    		<li><a href="#">Menu Three</a></li>
-	                  					</ul>
-	                				</li>
-	                				<li class="has-children">
-	                					<a href="#">Menu Three</a>
-	                 					<ul class="dropdown">
-				                    		<li><a href="#">Menu One</a></li>
-				                    		<li><a href="#">Menu Two</a></li>
-				                    		<li><a href="#">Menu Three</a></li>
-	                  					</ul>
-	               					</li>
-	                 				<li class="has-children">
-	                  					<a href="#">SubCategories</a>
-	                  					<ul class="dropdown">
-				                    		<li><a href="#">Menu One</a></li>
-				                    		<li><a href="#">Menu Two</a></li>
-				                    		<li><a href="#">Menu Three</a></li>
-	                  					</ul>
-	                				</li>
-              					</ul>
-            			</li>
-            <li class="has-children">
-              <a href="about.html">About</a>
-                         </li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="#">Catalogue</a></li>
-            <li><a href="#">New Arrivals</a></li>
-            <li><a href="contact.html">Contact</a></li>
-              <li><a href="#">Log In</a></li>
-          </ul>
-        </div>
-      </nav>
+     
     </header>
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Profile</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
+          <div class="col-md-12 mb-0"><a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <a href="productList.jsp">Users List</a> <span class="mx-2 mb-0">/</span><strong class="text-black">Modify User Profile</strong></div>
         </div>
       </div>
     </div>
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
+      	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
+        <form class="row" action="/online_store_admin/admController" method="post">
+         <% user user = (user)session.getAttribute("user");
+        %>
           <div class="col-md-6">
-            <h2 class="h3 mb-3 text-black">User Profile</h2>
+			<div class="col-lg-12">
+				<label for="c_longDesc" class="text-black">New Name </label> 
+					<input type="text" class="form-control" id="c_name" name="c_longDesc">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_shortDesc" class="text-black">New Surname </label> 
+					<input type="text" class="form-control" id="c_surname" name="c_shortDesc">
+			</div>
+			<div class="col-lg-12">
+			<!--<div class="col-lg-12">
+				<label for="c_ename" class="text-black">New E-mail </label> 
+					<input type="email" class="form-control" id="c_ename" name="c_ename">
+			</div> -->
+				<label for="c_stock" class="text-black">New Phone Number </label> 
+					<input type="tel" class="form-control" id="c_phone" name="c_phone" value=111111111>
+			</div>
+			<div class="col-lg-12">
+				<label for="c_categories" class="text-black">New Address </label>
+					<input type="text" class="form-control" id="c_address" name="c_address">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_image" class="text-black">New Image </label> 
+					<input type="file" class="form-control" id="c_image" name="c_image">
+			</div>
+			<div class="col-lg-12">
+				<label for="c_seller" class="text-black">This user should be a seller? </label>
+					<input type="checkbox" id="c_seller" name="c_seller">
+			</div>
+			<div class="col-lg-12">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" name="modifyUser" value="send">
+			</div>
           </div>
-           <div class="col-md-6">
-           			<form style="float: right" action="userController.java" method="POST">
-           				<div class="form-group row">
-									<div class="col-lg-12">
-										<input type="submit" class="btn btn-primary btn-lg btn-block"
-											name="c_logout" value="Logout">
-									</div>
-								</div>
-           </form>
+          <div class="col-md-6">
+            <h2 class="text-black"><%=user.getName()+" "+user.getSurname() %></h2>
+            <p><img src=" <%=user.getImagePath() %>" alt="Image" class="img-fluid"></p>
+            <p><strong class="text-primary h6">E-mail:</strong> <%=user.getMail()%></p>
+            <p><strong class="text-primary h6">Addres:</strong> <%=user.getAddress()%></p>
+            <p><strong class="text-primary h6">Phone number:</strong> <%=user.getPhone()%></p>
+            <p><strong class="text-primary h6">Is this user a seller?:</strong> <%=user.isSeller()%></p>
           </div>
-          <div class="col-md-12">
-
-					
-              <%user profile = (user)request.getAttribute("user");%>
-              <div class="p-3 p-lg-5 border">
-
-                  <div class="col-md-6">
-                <h2>Name: </h2> <%= profile.getName() %>
-				<h2>Surname: </h2> <%= profile.getSurname()%>
-				<h2>Username: </h2> <%= profile.getName()%>
-				<h2>Email: </h2> <%= profile.getMail()%>
-				<h2>Address: </h2> <%= profile.getAddress()%>
-				
-
-              </div>
-
-          </div>
- 
-        </div>
+        </form>
       </div>
     </div>
 
     <footer class="site-footer border-top">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Navigations</h3>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Sell online</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Shopping cart</a></li>
-                  <li><a href="#">Store builder</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Mobile commerce</a></li>
-                  <li><a href="#">Dropshipping</a></li>
-                  <li><a href="#">Website development</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <ul class="list-unstyled">
-                  <li><a href="#">Point of sale</a></li>
-                  <li><a href="#">Hardware</a></li>
-                  <li><a href="#">Software</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <h3 class="footer-heading mb-4">Promo</h3>
-            <a href="#" class="block-6">
-              <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
-              <h3 class="font-weight-light  mb-0">Finding Your Perfect Shoes</h3>
-              <p>Promo from  nuary 15 &mdash; 25, 2019</p>
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="block-5 mb-5">
-              <h3 class="footer-heading mb-4">Contact Info</h3>
-              <ul class="list-unstyled">
-                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                <li class="email">emailaddress@domain.com</li>
-              </ul>
-            </div>
-
-            <div class="block-7">
-              <form action="#" method="post">
-                <label for="email_subscribe" class="footer-heading">Subscribe</label>
-                <div class="form-group">
-                  <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
-                  <input type="submit" class="btn btn-sm btn-primary" value="Send">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
@@ -227,7 +113,7 @@
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
-
+          </div>
         </div>
       </div>
     </footer>
