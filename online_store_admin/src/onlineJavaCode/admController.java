@@ -8,7 +8,18 @@ import java.util.ArrayList;
 	import java.util.regex.Matcher;
 	import java.util.regex.Pattern;
 
-	import javax.servlet.ServletConfig;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 	import javax.servlet.ServletContext;
 	import javax.servlet.ServletException;
 	import javax.servlet.annotation.WebServlet;
@@ -39,7 +50,13 @@ import com.sun.tools.ws.wsdl.document.Output;
 	        super();
 	        // TODO Auto-generated constructor stub
 	    }
+	    
+	    private ConnectionFactory projectFactory;
+	 	
+	 	private Queue messages;
+		private Queue conf;
 
+		 
 		/**
 		 * @see Servlet#init(ServletConfig)
 		 */
@@ -48,6 +65,15 @@ import com.sun.tools.ws.wsdl.document.Output;
 			context=config.getServletContext();
 			//	Iniciazile database
 			DM=new dataManager();
+			try {
+				Context icontext = (Context) new InitialContext();
+				projectFactory = (ConnectionFactory) icontext.lookup("projectFactory");
+				messages = (Queue) icontext.lookup("messages");
+				conf = (Queue) icontext.lookup("conf");
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
+			
 		}
 
 		/**
@@ -272,9 +298,81 @@ import com.sun.tools.ws.wsdl.document.Output;
 								  session.setAttribute("ulist", ulist);
 								  response.sendRedirect("/online_store_admin/userList.jsp");
 								  }
+							  }else if(path.compareTo("MailBox.jsp")==0) {
+									String admin=(String) session.getAttribute("adminLogged"); //obtain the actual logged user
+									if (admin==null) {
+										request.getRequestDispatcher("/error.jsp").forward(request, response);
+									}
+									else {
+										String messageR=request.getParameter("message");
+										String dest=request.getParameter("dest");
+										try {
+											// - In the following steps we write the message and send it
+											// First create a connection using the connectionFactory
+											Connection c=projectFactory.createConnection();
+
+											// Next create the session. Indicate that transaction will not be supported
+												Session s=c.createSession(false, javax.jms.TopicSession.AUTO_ACKNOWLEDGE);
+											// Now use the session to create a message producer associated to the queue
+												MessageProducer producer=s.createProducer(messages);
+											 // Now use the session to create a text message
+												TextMessage m=s.createTextMessage();
+												m.setStringProperty("orig", admin);
+												m.setStringProperty("dest",dest);
+										//	We retrieve the parameter 'message' from the request, and use it as text of our message
+												m.setText(messageR);
+											// Use the message producer to send the message
+												producer.send(m);
+
+											// Close the producer
+												producer.close();
+											// Close the session
+											s.close();
+											// Close the connection
+											c.close();
+										}
+										catch(Exception e) {
+											request.getRequestDispatcher("/error.jsp").forward(request, response);
+										}
+										response.sendRedirect("/online_store_admin/MailBox.jsp");
+									}
 							  }
 					  
-					  
-					  
 					  }
+		/*private void cleanQueue(String admin) {
+			try {
+				// First create a connection using the connectionFactory
+				Connection c = projectFactory.createConnection();
+				// Next create the session. Indicate that transaction will not be supported
+				Session s = c.createSession(false, javax.jms.TopicSession.AUTO_ACKNOWLEDGE);
+				// Start connection
+				c.start();
+				// The filter that takes only the notifications where the destination is the
+				// user email is defined
+				String filter = "dest = '" + admin + "'";
+				// Use the session to create a consumer linked to the conf queue and the filter
+				// from user confirmations
+				MessageConsumer co = s.createConsumer(conf, filter);
+				// The message is defined
+				Message mensaje = null;
+				// Infinite while loop until the message is received
+				while (true) {
+					// Use the message consumer to try to retrieve a message. Not timing (wait until
+					// the message arrives)
+					mensaje = co.receive(500);
+					// If the message arrives
+					if (mensaje != null) {
+
+					} else {
+						break;
+					}
+				}
+				// The session and the connection is closed
+				s.close();
+				c.close();
+			} catch (Exception e) { // In case of exception the user is redirected to error
+
+			}
+		}*/
+
 	}

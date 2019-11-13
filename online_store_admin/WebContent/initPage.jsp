@@ -86,8 +86,7 @@
 						<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
 									<div class="col-lg-12">
-									<!-- CAMBIAR CUANDO TENGAMOS EL CORREO CONFIGURADO -->
-										<a href="error.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
+										<a href="MailBox.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
 											name="mailBox" value="mailBox"></a>
 									</div>
 								</div>
