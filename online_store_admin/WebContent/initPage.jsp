@@ -82,19 +82,25 @@
 								</div>
 						</div>
 					</div>
+					</form>
 					<div class="col-md-4 ml-auto">
 						<div class="p-3 p-lg-5 border">
 								<div class="form-group row">
 									<div class="col-lg-12">
-										<a href="MailBox.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
-											name="mailBox" value="mailBox"></a>
+									<form action="/online_store_admin/admController" method="POST">
+											<input type="submit" id="mailbox"
+												style="margin: 0 auto; width: 100%;"
+												class="btn btn-primary btn-lg btn-block" name="mailbox"
+												value="mailbox">
+										</form>
+										<!--<a href="MailBox.jsp" ><input type="button" class="btn btn-primary btn-lg btn-block"
+											id="mailBox" name="mailBox" value="mailBox"></a>-->
 									</div>
 								</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</form>
 		</div>
 
 		<footer class="site-footer border-top">

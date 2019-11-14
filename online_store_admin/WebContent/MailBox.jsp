@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
- <title>Alispeed &mdash; The best Online Shop</title>
+ 	<title>Alispeed &mdash; Administrator mode</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -47,7 +47,7 @@
               <div class="col-md-12">
                 <label for="c_email" class="text-black">Message To <span
                   class="text-danger">*</span></label> <input type="email"
-                  class="form-control" id="c_email" name="c_email"
+                  class="form-control" id="destination" name="dest"
                   placeholder="">
               </div>
             </div>
@@ -55,7 +55,7 @@
             <div class="form-group row">
               <div class="col-md-12">
                 <label for="c_subject" class="text-black">Text </label> <input
-                  type="password" class="form-control" id="message"
+                  type="text" class="form-control" id="message"
                   name="message">
               </div>
             </div>
@@ -85,6 +85,9 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<%String logged = (String) session.getAttribute("adminLogged");%>
+						 <%if (session.getAttribute("message") != null) { %>
+              				<p><%=session.getAttribute("message")%></p>
+              				<%session.setAttribute("message",null);} %>
 						<div class="col-12 text-center">
 							<div class="site-logo">
 								<a href="index.jsp" class="js-logo-clone">Alispeed</a>
@@ -99,8 +102,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 mb-0">
-						<a href="index.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <strong
-							class="text-black">Initial Page</strong>
+						<a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <strong
+							class="text-black">MailBox</strong>
 					</div>
 				</div>
 			</div>
@@ -113,7 +116,7 @@
             New message
           </button>
         <form class="col-md-12"  action="/online_store_admin/admController"method="post">
-          <%Pair<ArrayList<String>, ArrayList<String>> sellerMess= (Pair<ArrayList<String>, ArrayList<String>>) session.getAttribute("Messages");%>
+          <%Pair<ArrayList<String>, ArrayList<String>> Mess= (Pair<ArrayList<String>, ArrayList<String>>) session.getAttribute("messages");%>
             <div class="site-blocks-table">
               <table class="table table-bordered">
                 <thead>
@@ -125,16 +128,18 @@
                 </thead>
                 <tbody>
                   <tr>
-                  <%for(int ii = 0 ;ii < sellerMess.getKey().size(); ii++){ %>
+                  <%for(int ii = 0 ;ii < Mess.getKey().size(); ii++){ %>
                     <td class="product-thumbnail">
-                    <%=sellerMess.getValue().get(ii)%>
+                    <%=Mess.getValue().get(ii)%>
                      </td>
                     <td class="product-name">
-                      <h2 class="h5 text-black"><%=sellerMess.getKey().get(ii) %></h2>
+                      <h2 class="h5 text-black"><%=Mess.getKey().get(ii) %></h2>
                     </td>
                     <td class="product-name">
 
-                    	 <button type="button" class="btn btn-primary" onclick="reply(this.id)"  id="<%=sellerMess.getValue().get(ii)%>"  data-toggle="modal" data-target="#myModal"> Reply </button>
+                    	 <button type="button" class="btn btn-primary" onclick="reply(this.id)"  
+                    	 id="<%=Mess.getValue().get(ii)%>"  data-toggle="modal" data-target="#myModal"> 
+                    	 Reply </button>
                     </td>
                     </tr>
               <% } %>
