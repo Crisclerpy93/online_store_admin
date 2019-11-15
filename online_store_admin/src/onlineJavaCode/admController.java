@@ -381,8 +381,9 @@ import javafx.util.Pair;
 										catch(Exception e) {
 											request.getRequestDispatcher("/error.jsp").forward(request, response);
 										}
+									  	Pair<ArrayList<String>, ArrayList<String>> list = (Pair<ArrayList<String>, ArrayList<String>>) session.getAttribute("messages");
+										session.setAttribute("messages", list);
 										response.sendRedirect("/online_store_admin/MailBox.jsp");
-										//response.sendRedirect("/online_store_admin/initPage.jsp");
 										}
 									
 							  }

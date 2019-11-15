@@ -136,8 +136,7 @@
                       <h2 class="h5 text-black"><%=Mess.getKey().get(ii) %></h2>
                     </td>
                     <td class="product-name">
-
-                    	 <button type="button" class="btn btn-primary" onclick="reply(this.id)"  
+                    	 <button type="button" class="btn btn-primary" onclick=reply(this.id)  
                     	 id="<%=Mess.getValue().get(ii)%>"  data-toggle="modal" data-target="#myModal"> 
                     	 Reply </button>
                     </td>
@@ -167,7 +166,7 @@
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/aos.js"></script>
-
+  <script src="js/reply.js"></script>
   <script src="js/main.js"></script>
 
   </body>
