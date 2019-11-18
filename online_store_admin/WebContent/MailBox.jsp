@@ -62,7 +62,7 @@
             <div class="form-group row">
               <div class="col-lg-12">
                 <input type="submit" class="btn btn-primary btn-lg btn-block"
-                  value="Send">
+                  value="Send" name="Send">
               </div>
             </div>
           </div>
