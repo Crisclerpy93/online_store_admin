@@ -32,40 +32,43 @@ import com.sun.tools.ws.wsdl.document.Output;
 
 import javafx.util.Pair;
 
-	//import javafx.util.Pair;
-
-
 	/**
 	 * Servlet implementation class admController
 	 */
 	@WebServlet("/admController")
 	public class admController extends HttpServlet {
 		private static final long serialVersionUID = 1L;
-	       public ServletConfig config;
+		// Global variables   
+		public ServletConfig config;
 	       public ServletContext context;
 	       dataManager DM;
 	       HttpSession session;
 	    /**
 	     * @see HttpServlet#HttpServlet()
 	     */
+	       
+	   	// Constructor of the class
 	    public admController() {
 	        super();
 	        // TODO Auto-generated constructor stub
 	    }
 	    
+		// Global variables that represent the factory and the queues of communication
 	    private ConnectionFactory projectFactory;
-	 	
 	 	private Queue messages;
-
 		 
 		/**
 		 * @see Servlet#init(ServletConfig)
 		 */
+		// Init method executed when the server is activated
 		public void init(ServletConfig config) throws ServletException {
+			// Configuration of the server
 			this.config = config;
+			// The context of the server is obtained
 			context=config.getServletContext();
-			//	Iniciazile database
+			// Initialize the data manager that connects with the database
 			DM=new dataManager();
+			// The resources of the factory and the queues are obtained from the server
 			try {
 				Context icontext = (Context) new InitialContext();    
 				projectFactory = (ConnectionFactory) icontext.lookup("projectFactory");
@@ -79,6 +82,8 @@ import javafx.util.Pair;
 		/**
 		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 		 */
+		// doGet method that is executed when the GET method is invoked, it is going to
+		// redirect to the index page
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
 			context.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -86,52 +91,68 @@ import javafx.util.Pair;
 		/**
 		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 		 */
+		// doPost method that is executed when the POST method is invoked
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			// The session obtained from the request
 			session = request.getSession();
-			// TODO Auto-generated method stub
+			// Getting information of the url from request
 				String path=request.getHeader("referer");
 				  String [] arr=path.split("/");
 				  path=(arr[arr.length-1]);
+					// Preparing the information message that is sent in case of errors o
+				// successfulness
 					String message=null;
 					session.setAttribute("message",message);
-					System.out.println(path);
-					
+					// Once done, look where the request comes from
 					  if(path.compareTo("login.jsp")==0) {
+							// This is used to check if the email has the correct format
 						  String regex = "^(.+)@(.+)$";
 						  Pattern pattern = Pattern.compile(regex);
+							// Getting parameters from the request
 						  String admin=request.getParameter("c_email");
 						  String pass=request.getParameter("c_password");
+							// Error checking
 						  if(admin==null) {
 							  response.sendRedirect("/online_store_admin/error.jsp");
 						  }
+							// Matcher is used to see if the email has the correct format
 						  Matcher matcher = pattern.matcher(admin);
+							// Case where email is wrong
 						  if(matcher.matches()==false) {
-							  System.out.println(admin);
-							  	message="BAD FORMAT EMAIL";
+								// Error message
+							  message="BAD FORMAT EMAIL";
 								session.setAttribute("message",message);
+								// Forward to login again to display the message
 								response.sendRedirect("/online_store_admin/login.jsp");
 						  }
-						  else {
+						  else {// If the email has correct format
+								// Check if the user exists in database
 							  administrator act=DM.getAdmin(admin); //Check name in database
+								// If admin is not found in the database
 							  if(act==null) {
+								  //Error message
 								  message="USER IS NOT REGISTERED";
 								  session.setAttribute("message",message);
+									// Forward to login again to display the message
 								  response.sendRedirect("/online_store_admin/login.jsp");
-							  }else {
+							  }else {// If the user exists in the database
+									// Check if the introduced password is equal to the database
 								  boolean check= DM.getAdmin(admin).checkPass(pass); //Check if it exists and good password
+									// Case the password is not the same
 								  if(check==false) {
+										// Error message
 									  message="INCORRECT PASSWORD";
 									  session.setAttribute("message",message);
+										// Forward to login again to display the message
 									  response.sendRedirect("/online_store_admin/login.jsp");
 								  }
-								  else {
-									  //Keep data in the session
+								  else {// If the password is correct
+										// Saving the logged admin information in the session
 									  session.setAttribute("admin", act); 
 									  session.setAttribute("adminLogged", act.getMail()); 
-									  //session.setAttribute("plist", act.getProducts());
-									  //session.setAttribute("ulist", act.getUsers());
 									  session.setAttribute("plist", DM.getAllProducts());
 									  session.setAttribute("ulist", DM.getAllUsers());
+										// Redirecting to the user profile
 									  response.sendRedirect("/online_store_admin/initPage.jsp");
 								  }
 							  }
