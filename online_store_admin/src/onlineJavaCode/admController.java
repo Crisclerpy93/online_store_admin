@@ -149,6 +149,7 @@ public class admController extends HttpServlet {
 					session.setAttribute("message", message);
 					// Forward to login again to display the message
 					response.sendRedirect("/online_store_admin/login.jsp");
+				//If the user is not an administrator
 				}else if(!act.getMail().contains("admin")){
 					// Error message
 					message = "SORRY, YOU ARE NOT AN ADMINISTRATOR";
