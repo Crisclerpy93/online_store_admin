@@ -63,76 +63,77 @@
 				<p>
 					Write in those fields you want to modify.<br>Leave rest blank
 				</p>
-				<form class="row" action="/online_store_admin/admController"
+				<form action="/online_store_admin/admController"
 					method="post">
 					<%
 						Product product = (Product) session.getAttribute("product");
 					%>
-					<div class="col-md-6">
+					<div class="row">
 						<!--<div class="col-lg-12">
-				<label for="c_name" class="text-black">New Product Name </label> 
+				<label for="c_name" class="text-black">New Product Name </label>
 					<input type="text" class="form-control" id="c_name" name="c_name">
 			</div> -->
-						<div class="col-md-6">
+
+						<div class="col-6">
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New Name </label> <input
-									type="text" class="form-control" id="c_name" name="c_name">
+									type="text" class="form-control" id="c_name" name="c_name" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_longDesc" class="text-black">New Long
 									Description </label> <input type="text" class="form-control"
-									id="c_longDesc" name="c_longDesc">
+									id="c_longDesc" name="c_longDesc" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_shortDesc" class="text-black">New Short
 									Description </label> <input type="text" class="form-control"
-									id="c_shortDesc" name="c_shortDesc">
+									id="c_shortDesc" name="c_shortDesc" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New Price </label> <input
-									type="text" class="form-control" id="c_price" name="c_price">
+									type="number" min=0  value=0 class="form-control" id="c_price" name="c_price" required>
 							</div>
 							<!-- <div class="col-lg-12">
 				<label for="c_price" class="text-black">New Price </label>
-				<span class="text-danger">Positive float number</span> 
+				<span class="text-danger">Positive float number</span>
 					<input type="number" class="form-control" id="c_price" name="c_price" min=0.00 step=.01 value=0.00>
 			</div> -->
 							<div class="col-lg-12">
 								<label for="c_stock" class="text-black">New Stock </label> <span
 									class="text-danger">Positive integer number</span> <input
 									type="number" class="form-control" id="c_stock" name="c_stock"
-									min=0 value=0>
+									min=0 value=0 required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_seller" class="text-black">New Seller </label> <span
 									class="text-danger">Previous will be set if not found</span> <input
-									type="email" class="form-control" id="c_seller" name="c_seller">
+									type="email" class="form-control" id="c_seller" name="c_seller" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New General
 									Category </label> <input type="text" class="form-control"
-									id="c_categories" name="c_categories">
+									id="c_categories" name="c_categories" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New SubCategory
 									Category </label> <input type="text" class="form-control"
-									id="c_subCategories" name="c_subCategories">
+									id="c_subCategories" name="c_subCategories" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New specific
 									Category </label> <input type="text" class="form-control"
-									id="c_speCategories" name="c_speCategories">
+									id="c_speCategories" name="c_speCategories" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_image" class="text-black">New Image </label> <input
-									type="file" class="form-control" id="c_image" name="c_image">
+									type="file" class="form-control" id="c_image" name="c_image" >
 							</div>
 							<div class="col-lg-12">
 								<input type="submit" class="btn btn-primary btn-lg btn-block"
 									name="modifyProduct" value="send">
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-6">
 							<h2 class="text-black"><%=product.getName()%></h2>
 							<p>
 								<img src=" <%=product.getImage()%>" alt="Image"
@@ -152,13 +153,14 @@
 								<%=product.getStock()%></p>
 							<p>
 								<strong class="text-primary h6">Seller:</strong>
-								<%=product.getUser()%></p>
+								<%=product.getUser().getMail()%></p>
 							<h6>
 								<strong class="text-primary h6">Categories:</strong>
 							</h6>
-							<p><%=product.getCategoryBean()%></p>
+							<p><%=product.getCategoryBean().getName()%></p>
 
 						</div>
+							</div>
 				</form>
 			</div>
 		</div>
