@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -43,6 +44,7 @@ import javafx.util.Pair;
  * Servlet implementation class admController
  */
 @WebServlet("/admController")
+@MultipartConfig
 public class admController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// Global variables
@@ -204,9 +206,9 @@ public class admController extends HttpServlet {
 				float priceF = Float.parseFloat(price);
 				String shortD = request.getParameter("c_shortDesc");
 				String longD = request.getParameter("c_longDesc");
-//				Part filePart2 = request.getPart("c_image");
-//				byte[] data2 = new byte[(int) filePart2.getSize()];
-//				filePart2.getInputStream().read(data2, 0, data2.length);
+				Part filePart2 = request.getPart("c_image");
+				byte[] data2 = new byte[(int) filePart2.getSize()];
+				filePart2.getInputStream().read(data2, 0, data2.length);
 				String stock = request.getParameter("c_stock");
 				int stockI = Integer.parseInt(stock);
 				String cat = request.getParameter("c_categories");
@@ -217,7 +219,7 @@ public class admController extends HttpServlet {
 				p.setPrice(priceF);
 				p.setShortDesc(shortD);
 				p.setLongDesc(longD);
-//				p.setImage(data2);
+				p.setImage(data2);
 				p.setStock(stockI);
 				List<Category> par = DM.getParentCategories();
 				Category parent = new Category();
@@ -296,7 +298,9 @@ public class admController extends HttpServlet {
 				String address = request.getParameter("c_address");
 				if (address.isEmpty())
 					address = u.getAddress();
-//				String image = request.getParameter("c_image");
+				Part filePart2 = request.getPart("c_image");
+				byte[] data2 = new byte[(int) filePart2.getSize()];
+				filePart2.getInputStream().read(data2, 0, data2.length);
 //				if (image == null)
 //					image = u.getImagePath();
 				String seller = request.getParameter("c_seller");
@@ -311,7 +315,8 @@ public class admController extends HttpServlet {
 				u.setPhone(phone);
 				u.setSurname(surname);
 				u.setAddress(address);
-				u.setIsSeller(u.getIsSeller());
+				u.setImage(data2);
+				u.setIsSeller(bseller);
 				DM.updateUser(u);
 				List<User> ulist = DM.getAllUsers();
 				if (ulist == null) {

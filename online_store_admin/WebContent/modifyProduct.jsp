@@ -1,6 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@page language="java" import="model.Product"%>
+<%@ page import="java.util.List,java.util.ArrayList,model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +14,12 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
 <link rel="stylesheet" href="fonts/icomoon/style.css">
-
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/magnific-popup.css">
 <link rel="stylesheet" href="css/jquery-ui.css">
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
 <link rel="stylesheet" href="css/aos.css">
-
 <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -63,8 +61,7 @@
 				<p>
 					Write in those fields you want to modify.<br>Leave rest blank
 				</p>
-				<form action="/online_store_admin/admController"
-					method="post">
+				<form action="/online_store_admin/admController" enctype="multipart/form-data" method="post">
 					<%
 						Product product = (Product) session.getAttribute("product");
 					%>
@@ -136,8 +133,12 @@
 						<div class="col-6">
 							<h2 class="text-black"><%=product.getName()%></h2>
 							<p>
-								<img src=" <%=product.getImage()%>" alt="Image"
-									class="img-fluid">
+								<img class="img-fluid"src="<% StringBuilder sb = new StringBuilder();
+						sb.append("data:image/png;base64,");
+						sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getImage(), false)));
+						out.print(sb.toString()); %>">
+						</p>
+
 							</p>
 							<p>
 								<strong class="text-primary h6">Long Description:</strong>

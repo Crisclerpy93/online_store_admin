@@ -1,25 +1,22 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@page language="java" import="model.Product" import="java.util.List" import="java.util.Iterator"%>
+<%@ page import="java.util.List,java.util.ArrayList,model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Alispeed &mdash; Administrator mode</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
     <link rel="stylesheet" href="css/aos.css">
-
     <link rel="stylesheet" href="css/style.css">
 
   </head>
@@ -70,7 +67,12 @@
 
                   <% for(Product newProduct : plist){ %>
                     <td class="product-thumbnail">
-                   <img src=" <%=newProduct.getImage() %>" alt="Image" class="img-fluid">
+                      <img class="img-fluid"src="<% StringBuilder sb = new StringBuilder();
+                  sb.append("data:image/png;base64,");
+                  sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(newProduct.getImage(), false)));
+                  out.print(sb.toString()); %>">
+                  </p>
+
                      </td>
                     <td class="product-name">
                       <h2 class="h5 text-black"><%=newProduct.getName() %></h2>

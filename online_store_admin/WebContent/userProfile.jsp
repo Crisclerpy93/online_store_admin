@@ -1,25 +1,22 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@page language="java" import="model.User"%>
+<%@ page import="java.util.List,java.util.ArrayList,model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Alispeed &mdash; Administrator mode</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
     <link rel="stylesheet" href="css/aos.css">
-
     <link rel="stylesheet" href="css/style.css">
 
   </head>
@@ -41,7 +38,7 @@
           </div>
         </div>
       </div>
-     
+
     </header>
     <div class="bg-light py-3">
       <div class="container">
@@ -54,24 +51,24 @@
     <div class="site-section">
       <div class="container">
       	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
-        <form class="row" action="/online_store_admin/admController" method="post">
+        <form class="row" enctype="multipart/form-data"	 action="/online_store_admin/admController" method="post">
          <% User user = (User)session.getAttribute("user");
         %>
           <div class="col-md-6">
 			<div class="col-lg-12">
-				<label for="c_name" class="text-black">New Name </label> 
+				<label for="c_name" class="text-black">New Name </label>
 					<input type="text" class="form-control" id="c_name" name="c_name">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_surname" class="text-black">New Surname </label> 
+				<label for="c_surname" class="text-black">New Surname </label>
 					<input type="text" class="form-control" id="c_surname" name="c_surname">
 			</div>
 			<div class="col-lg-12">
 			<!--<div class="col-lg-12">
-				<label for="c_ename" class="text-black">New E-mail </label> 
+				<label for="c_ename" class="text-black">New E-mail </label>
 					<input type="email" class="form-control" id="c_ename" name="c_ename">
 			</div> -->
-				<label for="c_phone" class="text-black">New Phone Number </label> 
+				<label for="c_phone" class="text-black">New Phone Number </label>
 					<input type="tel" class="form-control" id="c_phone" name="c_phone" value=111111111>
 			</div>
 			<div class="col-lg-12">
@@ -79,7 +76,7 @@
 					<input type="text" class="form-control" id="c_address" name="c_address">
 			</div>
 			<div class="col-lg-12">
-				<label for="c_image" class="text-black">New Image </label> 
+				<label for="c_image" class="text-black">New Image </label>
 					<input type="file" class="form-control" id="c_image" name="c_image">
 			</div>
 			<div class="col-lg-12">
@@ -92,7 +89,12 @@
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><%=user.getName()+" "+user.getSurname() %></h2>
-            <p><img src=" <%=user.getImage() %>" alt="Image" class="img-fluid"></p>
+            <p>						<img class="img-fluid"src="<% StringBuilder sb = new StringBuilder();
+        						sb.append("data:image/png;base64,");
+        						sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(user.getImage(), false)));
+        						out.print(sb.toString()); %>">
+        						</p>
+</p>
             <p><strong class="text-primary h6">E-mail:</strong> <%=user.getMail()%></p>
             <p><strong class="text-primary h6">Addres:</strong> <%=user.getAddress()%></p>
             <p><strong class="text-primary h6">Phone number:</strong> <%=user.getPhone()%></p>
