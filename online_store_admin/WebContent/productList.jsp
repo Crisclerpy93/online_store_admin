@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" import="onlineJavaCode.product" import="java.util.ArrayList" import="java.util.Iterator"%>
+<%@page language="java" import="model.Product" import="java.util.List" import="java.util.Iterator"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +51,7 @@
       <div class="container">
         <div class="row mb-7">
         	<form class="col-md-12"  action="/online_store_admin/admController"method="post">
-          <% ArrayList <product> plist=(ArrayList<product>) session.getAttribute("plist");
+          <% List <Product> plist=(List<Product>) session.getAttribute("plist");
         %>
             <div class="site-blocks-table">
               <table class="table table-bordered">
@@ -68,9 +68,9 @@
                 <tbody>
                   <tr>
 
-                  <% for(product newProduct : plist){ %>
+                  <% for(Product newProduct : plist){ %>
                     <td class="product-thumbnail">
-                   <img src=" <%=newProduct.getImagePath() %>" alt="Image" class="img-fluid">
+                   <img src=" <%=newProduct.getImage() %>" alt="Image" class="img-fluid">
                      </td>
                     <td class="product-name">
                       <h2 class="h5 text-black"><%=newProduct.getName() %></h2>
@@ -80,11 +80,11 @@
                         <input type="text" class="form-control text-center" value="<%=newProduct.getStock()%>" name="" id="<%=newProduct.getName()%>">
                     </td>
                     <td>
- 					    <button  class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="wButton" >
+ 					    <button  class="btn btn-primary btn-sm" value="<%=newProduct.getId()%>" name="wButton" >
  					     X</button>
                     </td>
                      <td>
- 					     <button class="btn btn-primary btn-sm" value="<%=newProduct.getName()%>+<%=newProduct.getPrice()%>" name="mButton">
+ 					     <button class="btn btn-primary btn-sm" value="<%=newProduct.getId()%>" name="mButton">
  					     O</button>
                     </td>
 

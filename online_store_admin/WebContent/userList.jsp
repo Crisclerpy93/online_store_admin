@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" import="onlineJavaCode.user" import="java.util.ArrayList" import="java.util.Iterator"%>
+<%@page language="java" import="model.User" import="java.util.List" import="java.util.Iterator"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +51,7 @@
       <div class="container">
         <div class="row mb-7">
         	<form class="col-md-12"  action="/online_store_admin/admController"method="post">
-          <% ArrayList <user> ulist=(ArrayList<user>) session.getAttribute("ulist");
+          <% List <User> ulist=(List<User>) session.getAttribute("ulist");
         %>
             <div class="site-blocks-table">
               <table class="table table-bordered">
@@ -68,9 +68,9 @@
                 <tbody>
                   <tr>
 
-                  <% for(user newUser : ulist){ %>
+                  <% for(User newUser : ulist){ %>
                     <td class="user-thumbnail">
-                   <img src=" <%=newUser.getImagePath() %>" alt="Image" class="img-fluid">
+                   <img src=" <%=newUser.getImage() %>" alt="Image" class="img-fluid">
                      </td>
                     <td class="user-name">
                       <h2 class="h5 text-black"><%=newUser.getName() %></h2>
@@ -80,13 +80,13 @@
                         <input type="text" class="form-control text-center" value="<%=newUser.getPhone() %>" name="" id="<%=newUser.getName()%>">  
                       </div>
                     </td>
-                    <td><%=newUser.isSeller() %></td>
+                    <td><%=newUser.getIsSeller()%></td>
                     <td>
- 					     <button  class="btn btn-primary btn-sm" value="<%=newUser.getMail() %>" name="wButton" >
+ 					     <button  class="btn btn-primary btn-sm" value="<%=newUser.getMail()%>" name="wButton" >
  					     X</button>
                     </td>
                      <td>
- 					     <button class="btn btn-primary btn-sm" value="<%=newUser.getMail() %>" name="mButton">
+ 					     <button class="btn btn-primary btn-sm" value="<%=newUser.getMail()%>" name="mButton">
  					     O</button>
                     </td>
 

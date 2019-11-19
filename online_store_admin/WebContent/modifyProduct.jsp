@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" import="onlineJavaCode.product"%>
+<%@page language="java" import="model.Product"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,7 +55,7 @@
       <div class="container">
       	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
         <form class="row" action="/online_store_admin/admController" method="post">
-         <% product product = (product)session.getAttribute("product");
+         <% Product product = (Product)session.getAttribute("product");
         %>
           <div class="col-md-6">
             <!--<div class="col-lg-12">
@@ -99,16 +99,15 @@
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><%=product.getName() %></h2>
-            <p><img src=" <%=product.getImagePath() %>" alt="Image" class="img-fluid"></p>
+            <p><img src=" <%=product.getImage() %>" alt="Image" class="img-fluid"></p>
             <p><strong class="text-primary h6">Long Description:</strong> <%=product.getLongDesc()%></p>
             <p><strong class="text-primary h6">Short Description:</strong> <%=product.getShortDesc()%></p>
             <p><strong class="text-primary h6">Price:</strong> <%=product.getPrice()%></p>
             <p><strong class="text-primary h6">Stock:</strong> <%=product.getStock()%></p>
-            <p><strong class="text-primary h6">Seller:</strong> <%=product.getSeller().getMail()%></p>
+            <p><strong class="text-primary h6">Seller:</strong> <%=product.getUser()%></p>
             <h6><strong class="text-primary h6">Categories:</strong></h6>
-            <% for(String categories : product.getCategories()){ %>
-			<p><%=categories%></p>
-            <% } %>
+			<p><%=product.getCategoryBean()%></p>
+            
           </div>
         </form>
       </div>

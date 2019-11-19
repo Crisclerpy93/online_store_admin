@@ -1,17 +1,18 @@
-package entities;
+package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 /**
- * The persistent class for the Carts database table.
+ * The persistent class for the CARTS database table.
  * 
  */
 @Entity
-@Table(name = "Carts")
-@NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c")
+@Table(name="CARTS")
+@NamedQuery(name="Cart.findAll", query="SELECT c FROM Cart c")
 public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,28 +20,27 @@ public class Cart implements Serializable {
 	private int orderID;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "creation_date")
+	@Column(name="creation_date")
 	private Date creationDate;
 
-	@Column(name = "Order")
-	private Object order;
+	@Column(name="Order")
+	private Boolean order;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "order_date")
+	@Column(name="order_date")
 	private Date orderDate;
 
-	@Column(name = "total_order")
+	@Column(name="total_order")
 	private float totalOrder;
 
-	// bi-directional many-to-one association to User
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name = "User")
+	@JoinColumn(name="User")
 	private User userBean;
 
-	// bi-directional many-to-many association to Product
-	@ManyToMany
-	@JoinColumn(name = "orderID")
-	private List<Product> products;
+	//bi-directional many-to-one association to CartProduct
+	@OneToMany(mappedBy="cart")
+	private List<CartProduct> cartProducts;
 
 	public Cart() {
 	}
@@ -61,11 +61,11 @@ public class Cart implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public Object getOrder() {
+	public Boolean getOrder() {
 		return this.order;
 	}
 
-	public void setOrder(Object order) {
+	public void setOrder(Boolean order) {
 		this.order = order;
 	}
 
@@ -93,12 +93,26 @@ public class Cart implements Serializable {
 		this.userBean = userBean;
 	}
 
-	public List<Product> getProducts() {
-		return this.products;
+	public List<CartProduct> getCartProducts() {
+		return this.cartProducts;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setCartProducts(List<CartProduct> cartProducts) {
+		this.cartProducts = cartProducts;
+	}
+
+	public CartProduct addCartProduct(CartProduct cartProduct) {
+		getCartProducts().add(cartProduct);
+		cartProduct.setCart(this);
+
+		return cartProduct;
+	}
+
+	public CartProduct removeCartProduct(CartProduct cartProduct) {
+		getCartProducts().remove(cartProduct);
+		cartProduct.setCart(null);
+
+		return cartProduct;
 	}
 
 }

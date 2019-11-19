@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" import="onlineJavaCode.user"%>
+<%@page language="java" import="model.User"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,7 +55,7 @@
       <div class="container">
       	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
         <form class="row" action="/online_store_admin/admController" method="post">
-         <% user user = (user)session.getAttribute("user");
+         <% User user = (User)session.getAttribute("user");
         %>
           <div class="col-md-6">
 			<div class="col-lg-12">
@@ -92,11 +92,11 @@
           </div>
           <div class="col-md-6">
             <h2 class="text-black"><%=user.getName()+" "+user.getSurname() %></h2>
-            <p><img src=" <%=user.getImagePath() %>" alt="Image" class="img-fluid"></p>
+            <p><img src=" <%=user.getImage() %>" alt="Image" class="img-fluid"></p>
             <p><strong class="text-primary h6">E-mail:</strong> <%=user.getMail()%></p>
             <p><strong class="text-primary h6">Addres:</strong> <%=user.getAddress()%></p>
             <p><strong class="text-primary h6">Phone number:</strong> <%=user.getPhone()%></p>
-            <p><strong class="text-primary h6">Is this user a seller?:</strong> <%=user.isSeller()%></p>
+            <p><strong class="text-primary h6">Is this user a seller?:</strong> <%=user.getIsSeller()%></p>
           </div>
         </form>
       </div>

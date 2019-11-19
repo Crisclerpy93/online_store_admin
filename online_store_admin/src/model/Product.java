@@ -1,57 +1,61 @@
-package entities;
+package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
- * The persistent class for the Products database table.
+ * The persistent class for the PRODUCTS database table.
  * 
  */
 @Entity
-@Table(name = "Products")
-@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+@Table(name="PRODUCTS")
+@NamedQueries({
+	@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p"),
+	@NamedQuery(name="Product.findByName", query="SELECT p FROM Product p WHERE p.name LIKE :searchText")
+})
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "Id")
+	@Column(name="Id")
 	private int id;
 
 	@Lob
-	@Column(name = "Image")
+	@Column(name="Image")
 	private byte[] image;
 
 	@Lob
 	private String longDesc;
 
-	@Column(name = "Name")
+	@Column(name="Name")
 	private String name;
 
-	@Column(name = "Price")
+	@Column(name="Price")
 	private float price;
 
 	private String shortDesc;
 
-	@Column(name = "Stock")
+	@Column(name="Stock")
 	private int stock;
 
-	// bi-directional many-to-one association to Category
+	//bi-directional many-to-one association to CartProduct
+	@OneToMany(mappedBy="productBean")
+	private List<CartProduct> cartProducts;
+
+	//bi-directional many-to-one association to Category
 	@ManyToOne
-	@JoinColumn(name = "Category")
+	@JoinColumn(name="Category")
 	private Category categoryBean;
 
-	// bi-directional many-to-one association to User
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name = "Seller")
+	@JoinColumn(name="Seller")
 	private User user;
 
-	// bi-directional many-to-many association to Cart
-	@ManyToMany(mappedBy = "products")
-	private List<Cart> carts;
-
-	// bi-directional many-to-many association to User
-	@ManyToMany(mappedBy = "products2")
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="products2")
 	private List<User> users;
 
 	public Product() {
@@ -113,6 +117,28 @@ public class Product implements Serializable {
 		this.stock = stock;
 	}
 
+	public List<CartProduct> getCartProducts() {
+		return this.cartProducts;
+	}
+
+	public void setCartProducts(List<CartProduct> cartProducts) {
+		this.cartProducts = cartProducts;
+	}
+
+	public CartProduct addCartProduct(CartProduct cartProduct) {
+		getCartProducts().add(cartProduct);
+		cartProduct.setProductBean(this);
+
+		return cartProduct;
+	}
+
+	public CartProduct removeCartProduct(CartProduct cartProduct) {
+		getCartProducts().remove(cartProduct);
+		cartProduct.setProductBean(null);
+
+		return cartProduct;
+	}
+
 	public Category getCategoryBean() {
 		return this.categoryBean;
 	}
@@ -127,14 +153,6 @@ public class Product implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<Cart> getCarts() {
-		return this.carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
 	}
 
 	public List<User> getUsers() {

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="online_store_admin" transaction-type="JTA">
+	<persistence-unit name="online_store" transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>projectRSC</jta-data-source>
-		<class>entities.Cart</class>
-		<class>entities.Category</class>
-		<class>entities.Product</class>
-		<class>entities.User</class>
+		<non-jta-data-source>projectRSC</non-jta-data-source>
+		<class>model.Cart</class>
+		<class>model.CartProduct</class>
+		<class>model.Category</class>
+		<class>model.Product</class>
+		<class>model.User</class>
 	</persistence-unit>
 </persistence>

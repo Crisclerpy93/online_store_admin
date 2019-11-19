@@ -1,29 +1,31 @@
-package entities;
+package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+
 /**
- * The persistent class for the Category database table.
+ * The persistent class for the CATEGORY database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+@Table(name="CATEGORY")
+@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int catID;
 
-	@Column(name = "Name")
+	@Column(name="Name")
 	private String name;
 
-	@Column(name = "ParentID")
+	@Column(name="ParentID")
 	private int parentID;
 
-	// bi-directional many-to-one association to Product
-	@OneToMany(mappedBy = "categoryBean")
+	//bi-directional many-to-one association to Product
+	@OneToMany(mappedBy="categoryBean")
 	private List<Product> products;
 
 	public Category() {
@@ -74,6 +76,5 @@ public class Category implements Serializable {
 
 		return product;
 	}
-
 
 }

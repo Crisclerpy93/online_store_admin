@@ -1,57 +1,68 @@
-package entities;
+package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * The persistent class for the Users database table.
+ * The persistent class for the USERS database table.
  * 
  */
 @Entity
-@Table(name = "Users")
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@Table(name="USERS")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "Mail")
+	@Column(name="Mail")
 	private String mail;
 
 	@Lob
-	@Column(name = "Address")
+	@Column(name="Address")
 	private String address;
 
 	@Lob
-	@Column(name = "Image")
+	@Column(name="Image")
 	private byte[] image;
 
-	private Object isSeller;
+	private Boolean isSeller;
 
 	@Lob
-	@Column(name = "Name")
+	@Column(name="Name")
 	private String name;
 
 	private String passHash;
 
-	@Column(name = "Phone")
+	@Column(name="Phone")
 	private String phone;
 
 	@Lob
-	@Column(name = "Surname")
+	@Column(name="Surname")
 	private String surname;
 
-	// bi-directional many-to-one association to Cart
-	@OneToMany(mappedBy = "userBean")
+	//bi-directional many-to-one association to Cart
+	@OneToMany(mappedBy="userBean")
 	private List<Cart> carts;
 
-	// bi-directional many-to-one association to Product
-	@OneToMany(mappedBy = "user")
+	//bi-directional many-to-one association to Product
+	@OneToMany(mappedBy="user")
 	private List<Product> products1;
 
-	// bi-directional many-to-many association to Product
+	//bi-directional many-to-many association to Product
 	@ManyToMany
-	@JoinColumn(name = "Mail")
+	@JoinTable(
+			name="WHISLIST"
+			, joinColumns={
+				@JoinColumn(name="User")
+				}
+			, inverseJoinColumns={
+				@JoinColumn(name="Product")
+				}
+		)
 	private List<Product> products2;
 
 	public User() {
@@ -81,11 +92,11 @@ public class User implements Serializable {
 		this.image = image;
 	}
 
-	public Object getIsSeller() {
+	public Boolean getIsSeller() {
 		return this.isSeller;
 	}
 
-	public void setIsSeller(Object isSeller) {
+	public void setIsSeller(Boolean isSeller) {
 		this.isSeller = isSeller;
 	}
 
@@ -172,5 +183,14 @@ public class User implements Serializable {
 	public void setProducts2(List<Product> products2) {
 		this.products2 = products2;
 	}
+	
+	//Add products to whilst
+    public void addProduct2(Product prod){
+        if(this.products2 == null){
+            products2 = new ArrayList<Product>();
+        }
+        
+        this.products2.add(prod);
+    }
 
 }
