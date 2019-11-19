@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" import="onlineJavaCode.administrator"%>
+<%@page language="java" import="model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +58,7 @@
 		<form action="/admController" method="post">
 			<div class="container">
 				<div class="row">
-				<%administrator admin = (onlineJavaCode.administrator)session.getAttribute("admin");%>
+				<%User admin = (User)session.getAttribute("admin");%>
 					<div class="col-md-12">
 						<h2 class="h3 mb-3 text-black">Welcome <%= admin.getName() %>, what would you want to manage?</h2>
 					</div>

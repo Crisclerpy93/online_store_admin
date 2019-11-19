@@ -263,9 +263,7 @@ public class admController extends HttpServlet {
 				session.setAttribute("ulist", DM.getAllUsers());
 				response.sendRedirect("/online_store_admin/userProfile.jsp");
 			} else {
-				String[] values = act.split("\\+");
-				String user = values[0].trim();
-				User u = DM.getUser(user);
+				User u = DM.getUser(act);
 				List<User> ulist = DM.getAllUsers();
 				if (ulist == null) {
 					message = "THERE ARE NO USERS";
