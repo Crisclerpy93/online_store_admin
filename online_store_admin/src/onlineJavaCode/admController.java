@@ -149,7 +149,13 @@ public class admController extends HttpServlet {
 					session.setAttribute("message", message);
 					// Forward to login again to display the message
 					response.sendRedirect("/online_store_admin/login.jsp");
-				} else {// If the user exists in the database
+				}else if(!act.getMail().contains("admin")){
+					// Error message
+					message = "SORRY, YOU ARE NOT AN ADMINISTRATOR";
+					session.setAttribute("message", message);
+					// Forward to login again to display the message
+					response.sendRedirect("/online_store_admin/login.jsp");
+				}else {// If the user exists in the database
 						// Check if the introduced password is equal to the database
 					String hash = DigestUtils.sha256Hex(pass);// Check if it exists and good password
 					// Case the password is not the same
