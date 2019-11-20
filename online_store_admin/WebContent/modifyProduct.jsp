@@ -58,19 +58,11 @@
 
 		<div class="site-section">
 			<div class="container">
-				<p>
-					Write in those fields you want to modify.<br>Leave rest blank
-				</p>
 				<form action="/online_store_admin/admController" enctype="multipart/form-data" method="post">
 					<%
 						Product product = (Product) session.getAttribute("product");
 					%>
 					<div class="row">
-						<!--<div class="col-lg-12">
-				<label for="c_name" class="text-black">New Product Name </label>
-					<input type="text" class="form-control" id="c_name" name="c_name">
-			</div> -->
-
 						<div class="col-6">
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New Name </label> <input
@@ -90,11 +82,6 @@
 								<label for="c_fname" class="text-black">New Price </label> <input
 									type="number" min=0  value=0 class="form-control" id="c_price" name="c_price" required>
 							</div>
-							<!-- <div class="col-lg-12">
-				<label for="c_price" class="text-black">New Price </label>
-				<span class="text-danger">Positive float number</span>
-					<input type="number" class="form-control" id="c_price" name="c_price" min=0.00 step=.01 value=0.00>
-			</div> -->
 							<div class="col-lg-12">
 								<label for="c_stock" class="text-black">New Stock </label> <span
 									class="text-danger">Positive integer number</span> <input
