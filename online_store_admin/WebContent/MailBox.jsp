@@ -84,7 +84,6 @@
 			<div class="site-navbar-top">
 				<div class="container">
 					<div class="row align-items-center">
-					
 						<%String logged = (String) session.getAttribute("adminLogged");%>
 						 <%if (session.getAttribute("message") != null) { %>
               				<p><%=session.getAttribute("message")%></p>
