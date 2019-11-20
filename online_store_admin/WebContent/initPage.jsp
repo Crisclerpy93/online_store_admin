@@ -60,7 +60,7 @@
 				<div class="row">
 				<%User admin = (User)session.getAttribute("admin");%>
 					<div class="col-md-12">
-						<h2 class="h3 mb-3 text-black">Welcome <%= admin.getName() %>, what would you want to manage?</h2>
+						<h2 class="h3 mb-3 text-black">Welcome Administrator, what would you want to manage?</h2>
 					</div>
 					<div class="col-md-4">
 							<div class="p-3 p-lg-5 border">
