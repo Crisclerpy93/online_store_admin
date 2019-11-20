@@ -43,7 +43,7 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <a href="productList.jsp">Users List</a> <span class="mx-2 mb-0">/</span><strong class="text-black">Modify User Profile</strong></div>
+          <div class="col-md-12 mb-0"><a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <a href="userList.jsp">Users List</a> <span class="mx-2 mb-0">/</span><strong class="text-black">Modify User Profile</strong></div>
         </div>
       </div>
     </div>
