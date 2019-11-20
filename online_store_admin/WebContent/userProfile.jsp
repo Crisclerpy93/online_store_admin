@@ -50,30 +50,25 @@
 
     <div class="site-section">
       <div class="container">
-      	<p>Write in those fields you want to modify.<br>Leave rest blank</p>
         <form class="row" enctype="multipart/form-data"	 action="/online_store_admin/admController" method="post">
          <% User user = (User)session.getAttribute("user");
         %>
           <div class="col-md-6">
 			<div class="col-lg-12">
 				<label for="c_name" class="text-black">New Name </label>
-					<input type="text" class="form-control" id="c_name" name="c_name">
+					<input type="text" class="form-control" id="c_name" name="c_name" required>
 			</div>
 			<div class="col-lg-12">
 				<label for="c_surname" class="text-black">New Surname </label>
-					<input type="text" class="form-control" id="c_surname" name="c_surname">
+					<input type="text" class="form-control" id="c_surname" name="c_surname" required>
 			</div>
 			<div class="col-lg-12">
-			<!--<div class="col-lg-12">
-				<label for="c_ename" class="text-black">New E-mail </label>
-					<input type="email" class="form-control" id="c_ename" name="c_ename">
-			</div> -->
 				<label for="c_phone" class="text-black">New Phone Number </label>
-					<input type="tel" class="form-control" id="c_phone" name="c_phone" value=111111111>
+					<input type="tel" class="form-control" id="c_phone" name="c_phone" value=111111111 required>
 			</div>
 			<div class="col-lg-12">
 				<label for="c_address" class="text-black">New Address </label>
-					<input type="text" class="form-control" id="c_address" name="c_address">
+					<input type="text" class="form-control" id="c_address" name="c_address" required>
 			</div>
 			<div class="col-lg-12">
 				<label for="c_image" class="text-black">New Image </label>
@@ -81,7 +76,7 @@
 			</div>
 			<div class="col-lg-12">
 				<label for="c_seller" class="text-black">This user should be a seller? </label>
-					<input type="checkbox" id="c_seller" name="c_seller">
+					<input type="checkbox" id="c_seller" name="c_seller" required>
 			</div>
 			<div class="col-lg-12">
 				<input type="submit" class="btn btn-primary btn-lg btn-block" name="modifyUser" value="send">

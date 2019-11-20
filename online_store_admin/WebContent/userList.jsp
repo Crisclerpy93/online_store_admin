@@ -47,6 +47,12 @@
     <div class="site-section">
       <div class="container">
         <div class="row mb-7">
+        <%
+        	if (session.getAttribute("message")!=null) {
+        %>	
+        	<p><%=session.getAttribute("message")%></p>
+        <% } 
+        %>
         	<form class="col-md-12"  action="/online_store_admin/admController"method="post">
           <% List <User> ulist=(List<User>) session.getAttribute("ulist");
         %>
