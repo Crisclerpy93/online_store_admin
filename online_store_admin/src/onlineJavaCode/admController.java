@@ -1,11 +1,9 @@
 package onlineJavaCode;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.ArrayList;
-//import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,7 +31,7 @@ import javax.servlet.annotation.MultipartConfig;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.sun.tools.ws.wsdl.document.Output;
+//import com.sun.tools.ws.wsdl.document.Output;
 
 import model.Category;
 import model.Product;
@@ -177,37 +175,40 @@ public class admController extends HttpServlet {
 					}
 				}
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("productList.jsp") == 0) {
-			String admin = (String) session.getAttribute("adminLogged");
-			String act = request.getParameter("wButton");
+			String admin = (String) session.getAttribute("adminLogged"); //Obtain the actual logged administrator
+			//Obtain buttons values to know which has been pressed
+			String act = request.getParameter("wButton"); 
 			String act2 = request.getParameter("mButton");
-			if ((admin == null || act == null) && (admin == null || act2 == null)) {
-				request.getRequestDispatcher("/error.jsp").forward(request, response); // error checking
-			} else if (act2 != null) {
-				Product p = DM.getProduct(Integer.parseInt(act2));
-				session.setAttribute("product", p);
-				session.setAttribute("plist", DM.getAllProducts());
-				response.sendRedirect("/online_store_admin/modifyProduct.jsp");
-			} else {
-				Product p = DM.getProduct(Integer.parseInt(act));
-				List<Product> plist = DM.getAllProducts();
-				if (plist == null) {
+			if ((admin == null || act == null) && (admin == null || act2 == null)) { //Error checking
+				request.getRequestDispatcher("/error.jsp").forward(request, response); 
+			} else if (act2 != null) { //If administrator has pressed modify button
+				Product p = DM.getProduct(Integer.parseInt(act2)); //Obtain the product to modify
+				session.setAttribute("product", p); //Keep it in session
+				session.setAttribute("plist", DM.getAllProducts()); //Keep the whole products list in session
+				response.sendRedirect("/online_store_admin/modifyProduct.jsp"); //Redirect administrator to modify page
+			} else { //If administrator has pressed delete button
+				Product p = DM.getProduct(Integer.parseInt(act)); //Obtain the product to delete
+				List<Product> plist = DM.getAllProducts(); //Obtain the whole products list
+				if (plist == null) { //Checking if there are products
 					message = "THERE ARE NO AVAILABLE PRODUCTS";
 					session.setAttribute("message", message);
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				} else {
-					DM.deleteProduct(p);
-					session.setAttribute("plist", DM.getAllProducts());
-					response.sendRedirect("/online_store_admin/productList.jsp");
+					DM.deleteProduct(p); //Delete product
+					session.setAttribute("plist", DM.getAllProducts()); //update product list and keep it in session
+					response.sendRedirect("/online_store_admin/productList.jsp"); //Go back to product list
 				}
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("modifyProduct.jsp") == 0) {
-			String act = request.getParameter("modifyProduct");
-			String admin = (String) session.getAttribute("adminLogged");
-			Product p = (Product) session.getAttribute("product");
-			if (act == null || admin == null || p == null) {
+			String act = request.getParameter("modifyProduct"); //Obtain button value
+			String admin = (String) session.getAttribute("adminLogged"); //Obtain logged administrator
+			Product p = (Product) session.getAttribute("product"); //Obtain product to modify
+			if (act == null || admin == null || p == null) { //Errors checking
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
-			} else {
+			} else { //Getting values from the modification form and giving format to those in need
 				String name = request.getParameter("c_name");
 				String price = request.getParameter("c_price");
 				float priceF = Float.parseFloat(price);
@@ -273,66 +274,62 @@ public class admController extends HttpServlet {
 					response.sendRedirect("/online_store_admin/productList.jsp");
 				}
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("userList.jsp") == 0) {
-			String admin = (String) session.getAttribute("adminLogged");
+			String admin = (String) session.getAttribute("adminLogged"); //Obtain the actual logged administrator
+			//Obtain buttons values to know which has been pressed
 			String act = request.getParameter("wButton");
 			String act2 = request.getParameter("mButton");
-			if ((admin == null || act == null) && (admin == null || act2 == null)) {
-				request.getRequestDispatcher("/error.jsp").forward(request, response); // error checking
-			} else if (act2 != null) {
-				String[] values = act2.split("\\+");
-				String user = values[0].trim();
-				User u = DM.getUser(user);
-				session.setAttribute("user", u);
-				session.setAttribute("ulist", DM.getAllUsers());
-				response.sendRedirect("/online_store_admin/userProfile.jsp");
-			} else {
-				User u = DM.getUser(act);
-				List<User> ulist = DM.getAllUsers();
-				if (ulist == null) {
+			if ((admin == null || act == null) && (admin == null || act2 == null)) { //Error checking
+				request.getRequestDispatcher("/error.jsp").forward(request, response); 
+			} else if (act2 != null) { //If administrator has pressed modify button
+				User u = DM.getUser(act2); //Obtain the user to modify
+				session.setAttribute("user", u); //Keep it in session
+				session.setAttribute("ulist", DM.getAllUsers()); //Keep the whole users list in session
+				response.sendRedirect("/online_store_admin/userProfile.jsp"); //Redirect administrator to modify page
+			} else { //If administrator has pressed delete button
+				User u = DM.getUser(act); //Obtain the user to delete
+				List<User> ulist = DM.getAllUsers(); //Obtain the whole users list
+				if (ulist == null) { //Checking if there are users
 					message = "THERE ARE NO USERS";
 					session.setAttribute("message", message);
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				} else {
-					DM.deleteUser(u);
-					session.setAttribute("ulist", DM.getAllUsers());
-					response.sendRedirect("/online_store_admin/userList.jsp");
+					if(u.getIsSeller()) { //Checking if user is a seller
+						message =  "A SELLER WITH AVAILABLE PRODUCTS CANNOT BE DELETED";
+						session.setAttribute("message", message);
+						response.sendRedirect("/online_store_admin/userList.jsp");
+					}else {
+						//Deleting user and updating users list
+						DM.deleteUser(u);
+						session.setAttribute("ulist", DM.getAllUsers());
+						//Go back to users list
+						response.sendRedirect("/online_store_admin/userList.jsp");
+					}
 				}
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("userProfile.jsp") == 0) {
-			String act = request.getParameter("modifyUser");
-			String admin = (String) session.getAttribute("adminLogged");
-			User u = (User) session.getAttribute("user");
-			if (act == null || admin == null || u == null) {
+			String act = request.getParameter("modifyUser"); //Obtain button value
+			String admin = (String) session.getAttribute("adminLogged"); //Obtain logged administrator
+			User u = (User) session.getAttribute("user"); //Obtain user to modify
+			if (act == null || admin == null || u == null) { //errors checking
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
-			} else {
+			} else { //Getting values from the modification form and giving format to those in need
 				String name = request.getParameter("c_name");
-				if (name.isEmpty())
-					name = u.getName();
 				String surname = request.getParameter("c_surname");
-				if (surname.isEmpty())
-					surname = u.getSurname();
-				// String email = request.getParameter("c_email");
-				// if(email.isEmpty()) email = u.getMail();
 				String phone = request.getParameter("c_phone");
-				if (phone.equals("111111111"))
-					phone = u.getPhone();
 				String address = request.getParameter("c_address");
-				if (address.isEmpty())
-					address = u.getAddress();
 				Part filePart2 = request.getPart("c_image");
 				byte[] data2 = new byte[(int) filePart2.getSize()];
 				filePart2.getInputStream().read(data2, 0, data2.length);
-//				if (image == null)
-//					image = u.getImagePath();
 				String seller = request.getParameter("c_seller");
+				// The new user object is defined
 				boolean bseller;
 				if (seller == null)
 					bseller = false;
 				else
 					bseller = true;
-				// user(String uName, String uSurname, String uPhone, String uAddr, String
-				// uMail, String uPath, boolean uSell)
 				u.setName(name);
 				u.setPhone(phone);
 				u.setSurname(surname);
@@ -341,17 +338,20 @@ public class admController extends HttpServlet {
 				u.setIsSeller(bseller);
 				DM.updateUser(u);
 				List<User> ulist = DM.getAllUsers();
+				// Checking errors
 				if (ulist == null) {
 					message = "SOMETHING UNEXPECTED HAPPENED";
 					session.setAttribute("message", message);
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				}
+				// The user is updated in the database
 				session.setAttribute("ulist", ulist);
 				response.sendRedirect("/online_store_admin/userList.jsp");
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("initPage.jsp") == 0) {
 			String act = request.getParameter("mailbox");
-			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged user
+			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged administrator
 			if (admin == null || act == null) {
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else {
@@ -362,7 +362,7 @@ public class admController extends HttpServlet {
 					Session s = c.createSession(false, javax.jms.TopicSession.AUTO_ACKNOWLEDGE);
 					// Start connection
 					c.start();
-					// The filter that takes only the message where the destination is the user
+					// The filter that takes only the message where the destination is the admnistrator
 					// email is defined
 					String filter = "dest = '" + admin + "'";
 					// Use the session to create a consumer linked to the message queue and the
@@ -391,7 +391,7 @@ public class admController extends HttpServlet {
 					// The session and the connection are closed
 					s.close();
 					c.close();
-					// The list of messages is put in the session and the user is redirected to the
+					// The list of messages is put in the session and the administrator is redirected to the
 					// mailbox
 					session.setAttribute("messages", listMessage);
 					response.sendRedirect("/online_store_admin/MailBox.jsp");
@@ -400,8 +400,9 @@ public class admController extends HttpServlet {
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				}
 			}
+		//Look where the request comes from
 		} else if (path.compareTo("MailBox.jsp") == 0) {
-			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged user
+			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged administrator
 			if (admin == null) {
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else {
@@ -431,12 +432,12 @@ public class admController extends HttpServlet {
 					s.close();
 					// Close the connection
 					c.close();
-				} catch (Exception e) {
+					//The administrator is redirected to the mailbox
+					response.sendRedirect("/online_store_admin/MailBox.jsp");
+				} catch (Exception e) {// If an exception is produced, the administrator is redirected to error
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				}
-				response.sendRedirect("/online_store_admin/MailBox.jsp");
 			}
-
 		}
 	}
 }
