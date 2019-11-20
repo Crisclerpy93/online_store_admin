@@ -112,9 +112,7 @@
     <div class="site-section">
       <div class="container">
         <div class="row mb-5">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-            New message
-          </button>
+         <button type="button" class="btn btn-primary " style=" margin-left: 15px; margin-bottom:20px;"data-toggle="modal" data-target="#myModal">New message</button>
         <form class="col-md-12"  action="/online_store_admin/admController"method="post">
           <%Pair<ArrayList<String>, ArrayList<String>> Mess= (Pair<ArrayList<String>, ArrayList<String>>) session.getAttribute("messages");%>
             <div class="site-blocks-table">
@@ -154,9 +152,6 @@
       <!-- The Modal -->
      
 
-    <footer class="site-footer border-top">
-
-    </footer>
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>

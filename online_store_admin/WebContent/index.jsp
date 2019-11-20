@@ -2,11 +2,7 @@
 <%@page pageEncoding="UTF-8"%>
 <%@page language="java"  %>
 <!DOCTYPE html>
-<!-- LOGIIIINNN!!! BOTONES (USER-lista todos los usuarios, botón modificar y botón añadir, modificar->
-te lleva a nueva pagina con toda su info  donde puedes eliminar/modificar)/
-(PRODUCT-lista todos los productos, botón modificar y botón añadir, modificar->
-te lleva a nueva pagina con toda su info donde puedes eliminar/modificar))/
-()--> 
+
 <html lang="en">
   <head>
     <title>Alispeed &mdash; Administrator mode</title>
@@ -62,20 +58,7 @@ te lleva a nueva pagina con toda su info donde puedes eliminar/modificar))/
       </div>
     </div>
 
-    <footer class="site-footer border-top">
-      <div class="container">
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </footer>
+ 
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
