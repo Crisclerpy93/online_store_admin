@@ -149,14 +149,14 @@ public class admController extends HttpServlet {
 					session.setAttribute("message", message);
 					// Forward to login again to display the message
 					response.sendRedirect("/online_store_admin/login.jsp");
-				//If the user is not an administrator
-				}else if(!act.getMail().contains("admin")){
+					// If the user is not an administrator
+				} else if (!act.getMail().contains("admin")) {
 					// Error message
 					message = "SORRY, YOU ARE NOT AN ADMINISTRATOR";
 					session.setAttribute("message", message);
 					// Forward to login again to display the message
 					response.sendRedirect("/online_store_admin/login.jsp");
-				}else {// If the user exists in the database
+				} else {// If the user exists in the database
 						// Check if the introduced password is equal to the database
 					String hash = DigestUtils.sha256Hex(pass);// Check if it exists and good password
 					// Case the password is not the same
@@ -222,41 +222,56 @@ public class admController extends HttpServlet {
 				String scat = request.getParameter("c_subCategories");
 				String sscat = request.getParameter("c_speCategories");
 				// The new product object is defined
-				p.setName(name);
-				p.setPrice(priceF);
-				p.setShortDesc(shortD);
-				p.setLongDesc(longD);
-				p.setImage(data2);
-				p.setStock(stockI);
+				boolean check = false;
 				List<Category> par = DM.getParentCategories();
-				Category parent = new Category();
+				Category parent = null;
 				for (int i = 0; i < par.size(); i++) {
 					if (par.get(i).getName().equals(cat)) {
 						parent = par.get(i);
 						break;
 					}
 				}
-				List<Category> s = DM.getSubCategories(parent);
-				Category son = new Category();
-				for (int i = 0; i < s.size(); i++) {
-					if (s.get(i).getName().equals(scat)) {
-						son = s.get(i);
-						break;
+				if (parent != null) {
+					List<Category> s = DM.getSubCategories(parent);
+					Category son = null;
+					for (int i = 0; i < s.size(); i++) {
+						if (s.get(i).getName().equals(scat)) {
+							son = s.get(i);
+							break;
+						}
+					}
+					if (son != null) {
+						List<Category> sub = DM.getSubCategories(son);
+						Category subson = null;
+						for (int i = 0; i < sub.size(); i++) {
+							if (sub.get(i).getName().equals(sscat)) {
+								subson = sub.get(i);
+								break;
+							}
+						}
+						if (subson != null) {
+							p.setName(name);
+							p.setPrice(priceF);
+							p.setShortDesc(shortD);
+							p.setLongDesc(longD);
+							p.setImage(data2);
+							p.setStock(stockI);
+							p.setCategoryBean(subson);
+							check = true;
+						}
 					}
 				}
-				List<Category> sub = DM.getSubCategories(son);
-				Category subson = new Category();
-				for (int i = 0; i < sub.size(); i++) {
-					if (sub.get(i).getName().equals(sscat)) {
-						subson = sub.get(i);
-						break;
-					}
+				// If the format is bad
+				if (check == false) {
+					message = "BAD FORMAT";
+					session.setAttribute("message", message);
+					response.sendRedirect("/online_store_admin/modifyProduct.jsp");
+				} else {
+					// The product is updated in the database
+					DM.updateProduct(p);
+					session.setAttribute("plist", DM.getAllProducts());
+					response.sendRedirect("/online_store_admin/productList.jsp");
 				}
-				p.setCategoryBean(subson);
-				// The product is updated in the database
-				DM.updateProduct(p);
-				session.setAttribute("plist", DM.getAllProducts());
-				response.sendRedirect("/online_store_admin/productList.jsp");
 			}
 		} else if (path.compareTo("userList.jsp") == 0) {
 			String admin = (String) session.getAttribute("adminLogged");
