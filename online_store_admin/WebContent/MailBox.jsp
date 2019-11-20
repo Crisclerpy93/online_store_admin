@@ -90,7 +90,7 @@
               				<%session.setAttribute("message",null);} %>
 						<div class="col-12 text-center">
 							<div class="site-logo">
-								<a href="index.jsp" class="js-logo-clone">Alispeed</a>
+								<a href="initPage.jsp" class="js-logo-clone">Alispeed</a>
 							</div>
 						</div>
 					</div>
