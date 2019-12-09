@@ -295,7 +295,7 @@ public class admController extends HttpServlet {
 					session.setAttribute("message", message);
 					request.getRequestDispatcher("/error.jsp").forward(request, response);
 				} else {
-					if(u.getIsSeller()) { //Checking if user is a seller
+					if(u.getIsSeller() && u.getProducts1().size()!=0) { //Checking if user is a seller
 						message =  "A SELLER WITH AVAILABLE PRODUCTS CANNOT BE DELETED";
 						session.setAttribute("message", message);
 						response.sendRedirect("/online_store_admin/userList.jsp");
