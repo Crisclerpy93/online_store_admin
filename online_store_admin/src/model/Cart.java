@@ -17,13 +17,14 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="orderID")
 	private int orderID;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="creation_date")
 	private Date creationDate;
 
-	@Column(name="Order")
+	@Column(name="`Order`")
 	private Boolean order;
 
 	@Temporal(TemporalType.DATE)
@@ -35,7 +36,7 @@ public class Cart implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="User")
+	@JoinColumn(name="Customer")
 	private User userBean;
 
 	//bi-directional many-to-one association to CartProduct

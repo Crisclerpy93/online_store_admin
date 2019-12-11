@@ -89,11 +89,6 @@
 									min=0 value=0 required>
 							</div>
 							<div class="col-lg-12">
-								<label for="c_seller" class="text-black">New Seller </label> <span
-									class="text-danger">Previous will be set if not found</span> <input
-									type="email" class="form-control" id="c_seller" name="c_seller" required>
-							</div>
-							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New General
 									Category </label> <input type="text" class="form-control"
 									id="c_categories" name="c_categories" required>
@@ -139,13 +134,11 @@
 							<p>
 								<strong class="text-primary h6">Stock:</strong>
 								<%=product.getStock()%></p>
-							<p>
-								<strong class="text-primary h6">Seller:</strong>
-								<%=product.getUser().getMail()%></p>
 							<h6>
 								<strong class="text-primary h6">Categories:</strong>
 							</h6>
 							<p><%=product.getCategoryBean().getName()%></p>
+
 
 						</div>
 							</div>

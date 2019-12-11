@@ -1,7 +1,13 @@
 package model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import onlineJavaCode.BytesSerializerDeserializer;
+
 import java.util.List;
 
 
@@ -22,8 +28,11 @@ public class Product implements Serializable {
 	@Column(name="Id")
 	private int id;
 
+
 	@Lob
 	@Column(name="Image")
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
 	private byte[] image;
 
 	@Lob

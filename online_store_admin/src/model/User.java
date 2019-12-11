@@ -1,7 +1,12 @@
 package model;
 
 import java.io.Serializable;
+
+import javax.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeSerializer;
 import javax.persistence.*;
+
+import onlineJavaCode.BytesSerializerDeserializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +30,7 @@ public class User implements Serializable {
 	@Column(name="Address")
 	private String address;
 
-	@Lob
-	@Column(name="Image")
-	private byte[] image;
+
 
 	private Boolean isSeller;
 
@@ -64,7 +67,20 @@ public class User implements Serializable {
 				}
 		)
 	private List<Product> products2;
+	
+	//bi-directional many-to-one association to Message
+	@OneToMany(mappedBy="sender")
+	private List<Message> sent_mess;
 
+	//bi-directional many-to-one association to Message
+	@OneToMany(mappedBy="receiver")
+	private List<Message> rev_mess;
+
+	@Lob
+	@Column(name="Image")
+	@JsonbTypeDeserializer(BytesSerializerDeserializer.class)
+	@JsonbTypeSerializer(BytesSerializerDeserializer.class)
+	private byte[] image;
 	public User() {
 	}
 

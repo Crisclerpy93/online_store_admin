@@ -16,14 +16,14 @@ public class CartProduct implements Serializable {
 
 	@Id
 	@Column(name="Id")
-	private String id;
+	private int id;
 
 	@Column(name="Quantity")
 	private int quantity;
 
 	//bi-directional many-to-one association to Cart
 	@ManyToOne
-	@JoinColumn(name="order")
+	@JoinColumn(name="`order`")
 	private Cart cart;
 
 	//bi-directional many-to-one association to Product
@@ -34,11 +34,11 @@ public class CartProduct implements Serializable {
 	public CartProduct() {
 	}
 
-	public String getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
