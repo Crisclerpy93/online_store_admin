@@ -53,12 +53,7 @@ public class admController extends HttpServlet {
 	WebTarget webtargetPath;
 	Invocation.Builder invocationBuilder;
 	Response responsews;
-
 	HttpSession session;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 
 	// Constructor of the class
 	public admController() {
@@ -66,9 +61,6 @@ public class admController extends HttpServlet {
 
 	}
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
 	// Init method executed when the server is activated
 	public void init(ServletConfig config) throws ServletException {
 		// Configuration of the server
@@ -82,22 +74,14 @@ public class admController extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	// doGet method that is executed when the GET method is invoked, it is going to
 	// redirect to the index page
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		context.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	// doPost method that is executed when the POST method is invoked
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -134,15 +118,14 @@ public class admController extends HttpServlet {
 				response.sendRedirect("/online_store_admin/login.jsp");
 			} else {// If the email has correct format
 					// Check if the user exists in database
-				// setting microservice path
+				// setting the port to make the call
 				webtarget = client.target("http://localhost:15205");
-				// setting call
+				// setting the path to make the call
 				webtargetPath = webtarget.path("admin/users/" + admin);
-				// making call
+				// invoking the microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
-				// result
+				// getting the result
 				responsews = invocationBuilder.get();
-				// status returned by call
 				int status = responsews.getStatus();
 				User act = responsews.readEntity(User.class);
 				// If admin is not found in the database
@@ -177,31 +160,35 @@ public class admController extends HttpServlet {
 						webtarget = client.target("http://localhost:15205");
 						// setting path to call
 						webtargetPath = webtarget.path("admin/users");
-						// invoquing service
+						// invoking service
 						invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 						// getting result
 						responsews = invocationBuilder.get();
 						status = responsews.getStatus();
 						User[] ac = responsews.readEntity(User[].class);
+						// If the list of users is not found, the user is redirected to error
 						if (status == 404) {
 							// Forward to error to display the message
 							response.sendRedirect("/online_store_admin/error.jsp");
 						} else {
+							// The list of user is obtained
 							List<User> users = Arrays.asList(ac);
 							// setting port of microservice
 							webtarget = client.target("http://localhost:15205");
 							// setting path to make the call
 							webtargetPath = webtarget.path("admin/products");
-							// invoquing microservice
+							// invoking microservice
 							invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 							// getting response
 							responsews = invocationBuilder.get();
 							status = responsews.getStatus();
+							// If the list of products is not found, the user is redirected to error
 							Product[] list = responsews.readEntity(Product[].class);
 							if (status == 404) {
 								// Forward to error to display the message
 								response.sendRedirect("/online_store_admin/error.jsp");
 							} else {
+								// The two lists are put in the session
 								List<Product> articles = Arrays.asList(list);
 								session.setAttribute("plist", articles);
 								session.setAttribute("ulist", users);
@@ -209,7 +196,6 @@ public class admController extends HttpServlet {
 								response.sendRedirect("/online_store_admin/initPage.jsp");
 							}
 						}
-
 					}
 				}
 			}
@@ -222,14 +208,17 @@ public class admController extends HttpServlet {
 			if ((admin == null || act == null) && (admin == null || act2 == null)) { // Error checking
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else if (act2 != null) { // If administrator has pressed modify button
+				// setting the port for the microservice
 				webtarget = client.target("http://localhost:15205");
-				webtargetPath = webtarget.path("admin/products/getById/" + Integer.parseInt(act2));
-				// invoquing microservice
+				// setting the path for the microservice
+				webtargetPath = webtarget.path("admin/products/" + Integer.parseInt(act2));
+				// invoking microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 				// getting response
 				responsews = invocationBuilder.get();
 				int status = responsews.getStatus();
 				Product p = responsews.readEntity(Product.class);
+				// If the product is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
@@ -239,12 +228,13 @@ public class admController extends HttpServlet {
 					webtarget = client.target("http://localhost:15205");
 					// setting path to make the call
 					webtargetPath = webtarget.path("admin/products");
-					// invoquing microservice
+					// invoking microservice
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 					// getting response
 					responsews = invocationBuilder.get();
 					status = responsews.getStatus();
 					Product[] list = responsews.readEntity(Product[].class);
+					// If the list of products is not found, the user is redirected to error
 					if (status == 404) {
 						// Forward to error to display the message
 						response.sendRedirect("/online_store_admin/error.jsp");
@@ -256,13 +246,16 @@ public class admController extends HttpServlet {
 					}
 				}
 			} else { // If administrator has pressed delete button
+				// setting the port to make the call
 				webtarget = client.target("http://localhost:15205");
-				webtargetPath = webtarget.path("admin/products/delete/" + Integer.parseInt(act));
-				// invoquing microservice
+				// setting the path to make the call
+				webtargetPath = webtarget.path("admin/products/" + Integer.parseInt(act));
+				// invoking microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 				// getting response
 				responsews = invocationBuilder.delete();
 				int status = responsews.getStatus();
+				// If the product is not deleted, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
@@ -271,12 +264,13 @@ public class admController extends HttpServlet {
 					webtarget = client.target("http://localhost:15205");
 					// setting path to make the call
 					webtargetPath = webtarget.path("admin/products");
-					// invoquing microservice
+					// invoking microservice
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 					// getting response
 					responsews = invocationBuilder.get();
 					status = responsews.getStatus();
 					Product[] list = responsews.readEntity(Product[].class);
+					// If the product list is not found, the user is redirected to error
 					if (status == 404) {
 						// Forward to error to display the message
 						response.sendRedirect("/online_store_admin/error.jsp");
@@ -301,6 +295,7 @@ public class admController extends HttpServlet {
 				String shortD = request.getParameter("c_shortDesc");
 				String longD = request.getParameter("c_longDesc");
 				Part filePart2 = request.getPart("c_image");
+				// The image is transformed
 				byte[] data2 = new byte[(int) filePart2.getSize()];
 				filePart2.getInputStream().read(data2, 0, data2.length);
 				String stock = request.getParameter("c_stock");
@@ -308,21 +303,24 @@ public class admController extends HttpServlet {
 				String cat = request.getParameter("c_categories");
 				String scat = request.getParameter("c_subCategories");
 				String sscat = request.getParameter("c_speCategories");
-				// The new product object is defined
+				// The category is going to be checked
 				boolean check = false;
 				// setting the port to make the call
 				webtarget = client.target("http://localhost:15205");
-				webtargetPath = webtarget.path("/admin/categories/parents");
-				// invoquing
+				// setting the path to make the call
+				webtargetPath = webtarget.path("admin/categories/parents");
+				// invoking microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 				// getting response
 				responsews = invocationBuilder.get();
 				int status = responsews.getStatus();
 				Category[] catlist = responsews.readEntity(Category[].class);
+				// If the category is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
 				} else {
+					// The parent category is searched
 					List<Category> par = Arrays.asList(catlist);
 					Category parent = null;
 					for (int i = 0; i < par.size(); i++) {
@@ -331,20 +329,24 @@ public class admController extends HttpServlet {
 							break;
 						}
 					}
+					// If the parent category is correct
 					if (parent != null) {
 						// setting the port to make the call
 						webtarget = client.target("http://localhost:15205");
-						webtargetPath = webtarget.path("/admin/categories/sons/" + parent.getCatID());
-						// invoquing
+						// setting the path to make the call
+						webtargetPath = webtarget.path("admin/categories/sons/" + parent.getCatID());
+						// invoking microservice
 						invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 						// getting response
 						responsews = invocationBuilder.get();
 						status = responsews.getStatus();
 						Category[] catlist2 = responsews.readEntity(Category[].class);
+						// If the category is not found, the user is redirected to error
 						if (status == 404) {
 							// Forward to error to display the message
 							response.sendRedirect("/online_store_admin/error.jsp");
 						} else {
+							// The son category is searched
 							List<Category> s = Arrays.asList(catlist2);
 							Category son = null;
 							for (int i = 0; i < s.size(); i++) {
@@ -353,20 +355,24 @@ public class admController extends HttpServlet {
 									break;
 								}
 							}
+							// If the son category is correct
 							if (son != null) {
 								// setting the port to make the call
 								webtarget = client.target("http://localhost:15205");
-								webtargetPath = webtarget.path("/admin/categories/sons/" + son.getCatID());
-								// invoquing
+								// setting the path to make the call
+								webtargetPath = webtarget.path("admin/categories/sons/" + son.getCatID());
+								// invoking microservice
 								invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 								// getting response
 								responsews = invocationBuilder.get();
 								status = responsews.getStatus();
 								Category[] catlist3 = responsews.readEntity(Category[].class);
+								// If the categories are not found, the user is redirected to error
 								if (status == 404) {
 									// Forward to error to display the message
 									response.sendRedirect("/online_store_admin/error.jsp");
 								} else {
+									// The grandson category is searched
 									List<Category> sub = Arrays.asList(catlist3);
 									Category subson = null;
 									for (int i = 0; i < sub.size(); i++) {
@@ -375,6 +381,7 @@ public class admController extends HttpServlet {
 											break;
 										}
 									}
+									// If the grandson category exists, the product is modified
 									if (subson != null) {
 										p.setName(name);
 										p.setPrice(priceF);
@@ -397,13 +404,17 @@ public class admController extends HttpServlet {
 					response.sendRedirect("/online_store_admin/modifyProduct.jsp");
 				} else {
 					// The product is updated in the database
+					// setting port of the microservice
 					webtarget = client.target("http://localhost:15205");
-					webtargetPath = webtarget.path("/admin/products/update/" + p.getId());
-					// invoquing
+					// setting path of the microservice
+					webtargetPath = webtarget.path("admin/products/" + p.getId());
+					// invoking microservice
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
+					// getting response
 					responsews = invocationBuilder.put(Entity.entity(p, MediaType.APPLICATION_JSON));
 					status = responsews.getStatus();
 					p = responsews.readEntity(Product.class);
+					// If the product is not updated, the user is redirected to error
 					if (status == 404) {
 						// Forward to error to display the message
 						response.sendRedirect("/online_store_admin/error.jsp");
@@ -412,12 +423,13 @@ public class admController extends HttpServlet {
 						webtarget = client.target("http://localhost:15205");
 						// setting path to make the call
 						webtargetPath = webtarget.path("admin/products");
-						// invoquing microservice
+						// invoking microservice
 						invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 						// getting response
 						responsews = invocationBuilder.get();
 						status = responsews.getStatus();
 						Product[] list = responsews.readEntity(Product[].class);
+						// If the product list is not found, the user is redirected to error
 						if (status == 404) {
 							// Forward to error to display the message
 							response.sendRedirect("/online_store_admin/error.jsp");
@@ -438,16 +450,17 @@ public class admController extends HttpServlet {
 			if ((admin == null || act == null) && (admin == null || act2 == null)) { // Error checking
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else if (act2 != null) { // If administrator has pressed modify button
+				// setting port of microservice
 				webtarget = client.target("http://localhost:15205");
-				// setting call
-				webtargetPath = webtarget.path("/admin/users/" + act2);
-				// making call
+				// setting path to make the call
+				webtargetPath = webtarget.path("admin/users/" + act2);
+				// Invoking microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
-				// result
+				// getting response
 				responsews = invocationBuilder.get();
-				// status returned by call
 				int status = responsews.getStatus();
 				User ac = responsews.readEntity(User.class);
+				// If the user is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
@@ -457,12 +470,13 @@ public class admController extends HttpServlet {
 					webtarget = client.target("http://localhost:15205");
 					// setting path to make the call
 					webtargetPath = webtarget.path("admin/users");
-					// invoquing microservice
+					// invoking microservice
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 					// getting response
 					responsews = invocationBuilder.get();
 					status = responsews.getStatus();
 					User[] list = responsews.readEntity(User[].class);
+					// If the list of user is not found, the user is redirected to error
 					if (status == 404) {
 						// Forward to error to display the message
 						response.sendRedirect("/online_store_admin/error.jsp");
@@ -474,33 +488,38 @@ public class admController extends HttpServlet {
 					}
 				}
 			} else { // If administrator has pressed delete button
+				// setting port of microservice
 				webtarget = client.target("http://localhost:15205");
-				// setting call
-				webtargetPath = webtarget.path("/admin/users/" + act);
-				// making call
+				// setting path to make the call
+				webtargetPath = webtarget.path("admin/users/" + act);
+				// invoking microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
-				// result
+				// getting response
 				responsews = invocationBuilder.get();
-				// status returned by call
 				int status = responsews.getStatus();
 				User u = responsews.readEntity(User.class);
+				// If the user is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
 				} else {
-					if (u.getIsSeller() && u.getProducts1().size() != 0) { // Checking if user is a seller
+					if (u.getIsSeller() && u.getProducts1().size() != 0) { // Checking if user is a seller and the list
+																			// of product is empty
 						message = "A SELLER WITH AVAILABLE PRODUCTS CANNOT BE DELETED";
 						session.setAttribute("message", message);
 						response.sendRedirect("/online_store_admin/userList.jsp");
 					} else {
 						// Deleting user and updating users list
+						// setting port of microservice
 						webtarget = client.target("http://localhost:15205");
+						// setting path to make the call
 						webtargetPath = webtarget.path("admin/users/" + u.getMail());
-						// invoquing microservice
+						// invoking microservice
 						invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 						// getting response
 						responsews = invocationBuilder.delete();
 						status = responsews.getStatus();
+						// If the user is not deleted, the user is redirected to error
 						if (status == 404) {
 							// Forward to error to display the message
 							response.sendRedirect("/online_store_admin/error.jsp");
@@ -509,12 +528,13 @@ public class admController extends HttpServlet {
 							webtarget = client.target("http://localhost:15205");
 							// setting path to make the call
 							webtargetPath = webtarget.path("admin/users");
-							// invoquing microservice
+							// invoking microservice
 							invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 							// getting response
 							responsews = invocationBuilder.get();
 							status = responsews.getStatus();
 							User[] list = responsews.readEntity(User[].class);
+							// If the list of users is not found, the user is redirected to error
 							if (status == 404) {
 								// Forward to error to display the message
 								response.sendRedirect("/online_store_admin/error.jsp");
@@ -528,7 +548,6 @@ public class admController extends HttpServlet {
 					}
 				}
 			}
-
 			// Look where the request comes from
 		} else if (path.compareTo("userProfile.jsp") == 0) {
 			String act = request.getParameter("modifyUser"); // Obtain button value
@@ -542,15 +561,17 @@ public class admController extends HttpServlet {
 				String phone = request.getParameter("c_phone");
 				String address = request.getParameter("c_address");
 				Part filePart2 = request.getPart("c_image");
+				// The image is transformed
 				byte[] data2 = new byte[(int) filePart2.getSize()];
 				filePart2.getInputStream().read(data2, 0, data2.length);
 				String seller = request.getParameter("c_seller");
-				// The new user object is defined
+				// The seller option is transformed to boolean
 				boolean bseller;
 				if (seller == null)
 					bseller = false;
 				else
 					bseller = true;
+				// The values are setting in the user
 				u.setName(name);
 				u.setPhone(phone);
 				u.setSurname(surname);
@@ -566,7 +587,7 @@ public class admController extends HttpServlet {
 				// getting response
 				responsews = invocationBuilder.put(Entity.entity(u, MediaType.APPLICATION_JSON));
 				int status = responsews.getStatus();
-				// User ac2 = responsews.readEntity(User.class);
+				// If the user is not updated, it is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
@@ -575,12 +596,13 @@ public class admController extends HttpServlet {
 					webtarget = client.target("http://localhost:15205");
 					// setting path to make the call
 					webtargetPath = webtarget.path("admin/users");
-					// invoquing microservice
+					// invoking microservice
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 					// getting response
 					responsews = invocationBuilder.get();
 					status = responsews.getStatus();
 					User[] list = responsews.readEntity(User[].class);
+					// If the list of users is not found, the user is redirected to error
 					if (status == 404) {
 						// Forward to error to display the message
 						response.sendRedirect("/online_store_admin/error.jsp");
@@ -592,7 +614,8 @@ public class admController extends HttpServlet {
 							session.setAttribute("message", message);
 							request.getRequestDispatcher("/error.jsp").forward(request, response);
 						}
-						// The user is updated in the database
+						// The list of user is put in the session and the user is redirected to the user
+						// list page
 						session.setAttribute("ulist", ulist);
 						response.sendRedirect("/online_store_admin/userList.jsp");
 					}
@@ -600,33 +623,39 @@ public class admController extends HttpServlet {
 			}
 			// Look where the request comes from
 		} else if (path.compareTo("initPage.jsp") == 0) {
+			// The button is captured
 			String act = request.getParameter("mailbox");
 			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged administrator
-			if (admin == null || act == null) {
+			if (admin == null || act == null) { // Error checking
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else {
+				// The pair where the text and the sender is kept is declared
 				Pair<ArrayList<String>, ArrayList<String>> listMessage = new Pair<ArrayList<String>, ArrayList<String>>(
 						new ArrayList<String>(), new ArrayList<String>());
+				// The message are obtained
 				// setting port to call microservice
 				webtarget = client.target("http://localhost:15203");
-				webtargetPath = webtarget.path("chat/receive/messages/" + admin);
-				// invoquing
+				// setting path to call microservice
+				webtargetPath = webtarget.path("chat/messages/" + admin);
+				// invoking the microservice
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 				// getting response
 				responsews = invocationBuilder.get();
 				int status = responsews.getStatus();
 				Message[] messages = responsews.readEntity(Message[].class);
+				// If the message are not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
 				} else {
-					// The list of messages is put in the session and the administrator is
-					// redirected to the
-					// mailbox
+					// The pair is completed with the text and the seller
 					for (int i = 0; i < messages.length; i++) {
 						listMessage.getValue().add(messages[i].getUser1().getMail());
 						listMessage.getKey().add(messages[i].getText());
 					}
+					// The list of messages is put in the session and the administrator is
+					// redirected to the
+					// mailbox
 					session.setAttribute("messages", listMessage);
 					response.sendRedirect("/online_store_admin/MailBox.jsp");
 				}
@@ -634,15 +663,17 @@ public class admController extends HttpServlet {
 			// Look where the request comes from
 		} else if (path.compareTo("MailBox.jsp") == 0) {
 			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged administrator
-			if (admin == null) {
+			if (admin == null) { //if the admin is not registered
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else {
+				//The text and the destination are obtained
 				String messageR = request.getParameter("message");
 				String dest = request.getParameter("dest");
+				//The message is created
 				Message m = new Message();
 				// setting port for the microservice
 				webtarget = client.target("http://localhost:15205");
-				// path plus the user variable
+				// setting path for the microservice
 				webtargetPath = webtarget.path("admin/users/" + admin);
 				// making the call
 				invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
@@ -650,13 +681,14 @@ public class admController extends HttpServlet {
 				responsews = invocationBuilder.get();
 				int status = responsews.getStatus();
 				User ac = responsews.readEntity(User.class);
+				//If the sender is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");
 				} else {
 					// setting port microservice
 					webtarget = client.target("http://localhost:15205");
-					// path plus the destination user for making the call
+					// setting path for the microservice
 					webtargetPath = webtarget.path("admin/users/" + dest);
 					// performing call
 					invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
@@ -664,26 +696,30 @@ public class admController extends HttpServlet {
 					responsews = invocationBuilder.get();
 					status = responsews.getStatus();
 					User ac2 = responsews.readEntity(User.class);
+					// If the user is not found, the user is redirected to mailbox to see a message
+					// saying that the destination does not exist
 					if (status == 404) {
-						// Forward to mailbox to display the message
-						message="NOT EXISTS THIS RECEIVER";
+						// create and set the message in the session
+						message = "NOT EXISTS THIS RECEIVER";
 						session.setAttribute("message", message);
+						// Forward to mailbox to display the message
 						response.sendRedirect("/online_store_admin/MailBox.jsp");
 					} else {
+						// put the parameters in the message
 						m.setUser1(ac);
 						m.setUser2(ac2);
 						m.setText(messageR);
 						m.setBroadcast(false);
 						// setting port of the microservice
 						webtarget = client.target("http://localhost:15203");
-						// path to call
-						webtargetPath = webtarget.path("chat/send");
-						// invoquing service
+						// setting path for the microservice
+						webtargetPath = webtarget.path("chat");
+						// invoking service
 						invocationBuilder = webtargetPath.request(MediaType.APPLICATION_JSON);
 						// getting response
 						responsews = invocationBuilder.post(Entity.entity(m, MediaType.APPLICATION_JSON));
 						status = responsews.getStatus();
-						// Message correct = responsews.readEntity(Message.class);
+						// If the message is not sent, the user is redirected to error
 						if (status == 200) {
 							// Forward to error to display the message
 							response.sendRedirect("/online_store_admin/error.jsp");
