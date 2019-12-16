@@ -663,13 +663,13 @@ public class admController extends HttpServlet {
 			// Look where the request comes from
 		} else if (path.compareTo("MailBox.jsp") == 0) {
 			String admin = (String) session.getAttribute("adminLogged"); // obtain the actual logged administrator
-			if (admin == null) { //if the admin is not registered
+			if (admin == null) { // if the admin is not registered
 				request.getRequestDispatcher("/error.jsp").forward(request, response);
 			} else {
-				//The text and the destination are obtained
+				// The text and the destination are obtained
 				String messageR = request.getParameter("message");
 				String dest = request.getParameter("dest");
-				//The message is created
+				// The message is created
 				Message m = new Message();
 				// setting port for the microservice
 				webtarget = client.target("http://localhost:15205");
@@ -681,7 +681,7 @@ public class admController extends HttpServlet {
 				responsews = invocationBuilder.get();
 				int status = responsews.getStatus();
 				User ac = responsews.readEntity(User.class);
-				//If the sender is not found, the user is redirected to error
+				// If the sender is not found, the user is redirected to error
 				if (status == 404) {
 					// Forward to error to display the message
 					response.sendRedirect("/online_store_admin/error.jsp");

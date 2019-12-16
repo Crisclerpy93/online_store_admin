@@ -33,8 +33,7 @@
 				<div class="container">
 					<div class="row align-items-center">
 
-						<div
-							class="col-12 text-center">
+						<div class="col-12 text-center">
 							<div class="site-logo">
 								<a href="index.jsp" class="js-logo-clone">Alispeed</a>
 							</div>
@@ -47,8 +46,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 mb-0">
-						<a href="index.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <strong
-							class="text-black">Login</strong>
+						<a href="index.jsp">Administrator</a> <span class="mx-2 mb-0">/</span>
+						<strong class="text-black">Login</strong>
 					</div>
 				</div>
 			</div>
@@ -66,6 +65,7 @@
 						%>
 						<p><%=session.getAttribute("message")%></p>
 						<%
+							session.setAttribute("message", null);
 							}
 						%>
 						<form action="/online_store_admin/admController" method="POST">
@@ -84,9 +84,8 @@
 								<div class="form-group row">
 									<div class="col-md-12">
 										<label for="c_subject" class="text-black">Password <span
-											class="text-danger">*</span></label> <input
-											type="password" class="form-control" id="c_password"
-											name="c_password">
+											class="text-danger">*</span></label> <input type="password"
+											class="form-control" id="c_password" name="c_password">
 									</div>
 								</div>
 								<div class="form-group row">

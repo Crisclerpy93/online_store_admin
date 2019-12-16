@@ -1,7 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@page language="java" import="model.Product"%>
-<%@ page import="java.util.List,java.util.ArrayList,model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;" %>
+<%@ page
+	import="java.util.List,java.util.ArrayList,model.*,org.apache.commons.codec.binary.StringUtils,org.apache.commons.codec.binary.Base64;"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,14 @@
 				<div class="container">
 					<div class="row align-items-center">
 
-
+						<%
+							if (session.getAttribute("message") != null) {
+						%>
+						<p><%=session.getAttribute("message")%></p>
+						<%
+							session.setAttribute("message", null);
+							}
+						%>
 						<div class="col-12 text-center">
 							<div class="site-logo">
 								<a href="initPage.jsp" class="js-logo-clone">Alispeed</a>
@@ -58,7 +66,8 @@
 
 		<div class="site-section">
 			<div class="container">
-				<form action="/online_store_admin/admController" enctype="multipart/form-data" method="post">
+				<form action="/online_store_admin/admController"
+					enctype="multipart/form-data" method="post">
 					<%
 						Product product = (Product) session.getAttribute("product");
 					%>
@@ -66,7 +75,8 @@
 						<div class="col-6">
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New Name </label> <input
-									type="text" class="form-control" id="c_name" name="c_name" required>
+									type="text" class="form-control" id="c_name" name="c_name"
+									required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_longDesc" class="text-black">New Long
@@ -80,7 +90,8 @@
 							</div>
 							<div class="col-lg-12">
 								<label for="c_fname" class="text-black">New Price </label> <input
-									type="number" min=0  value=0 class="form-control" id="c_price" name="c_price" required>
+									type="number" min=0 value=0 class="form-control" id="c_price"
+									name="c_price" required>
 							</div>
 							<div class="col-lg-12">
 								<label for="c_stock" class="text-black">New Stock </label> <span
@@ -105,7 +116,7 @@
 							</div>
 							<div class="col-lg-12">
 								<label for="c_image" class="text-black">New Image </label> <input
-									type="file" class="form-control" id="c_image" name="c_image" >
+									type="file" class="form-control" id="c_image" name="c_image">
 							</div>
 							<div class="col-lg-12">
 								<input type="submit" class="btn btn-primary btn-lg btn-block"
@@ -115,12 +126,11 @@
 						<div class="col-6">
 							<h2 class="text-black"><%=product.getName()%></h2>
 							<p>
-								<img class="img-fluid"src="<% StringBuilder sb = new StringBuilder();
-						sb.append("data:image/png;base64,");
-						sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getImage(), false)));
-						out.print(sb.toString()); %>">
-						</p>
-
+								<img class="img-fluid"
+									src="<%StringBuilder sb = new StringBuilder();
+			sb.append("data:image/png;base64,");
+			sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(product.getImage(), false)));
+			out.print(sb.toString());%>">
 							</p>
 							<p>
 								<strong class="text-primary h6">Long Description:</strong>
@@ -141,7 +151,7 @@
 
 
 						</div>
-							</div>
+					</div>
 				</form>
 			</div>
 		</div>

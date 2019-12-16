@@ -1,6 +1,6 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page language="java" %>
+<%@page language="java"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +31,7 @@
 			<div class="site-navbar-top">
 				<div class="container">
 					<div class="row align-items-center">
-						<div
-							class="col-12 text-center">
+						<div class="col-12 text-center">
 							<div class="site-logo">
 								<a href="index.jsp" class="js-logo-clone">Alispeed</a>
 							</div>
@@ -40,20 +39,27 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</header>
 
 		<div class="bg-light py-3">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 mb-0">
-						<a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span> <strong
-							class="text-black">Error</strong>
+						<a href="initPage.jsp">Administrator</a> <span class="mx-2 mb-0">/</span>
+						<strong class="text-black">Error</strong>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		<%
+			if (session.getAttribute("message") != null) {
+		%>
+		<p><%=session.getAttribute("message")%></p>
+		<%
+			session.setAttribute("message", null);
+			}
+		%>
 		<div class="site-section">
 			<div class="container">
 				<div class="row">
@@ -62,8 +68,9 @@
 						<h2 class="display-3 text-black">Sorry!</h2>
 						<p class="lead mb-5">Something wrong happened.</p>
 						<p>
-						<!-- PUEDE QUE HAYA QUE CAMBIARLO!!!! -->
-							<a href="javascript:history.back(-1);" class="btn btn-sm btn-primary">Go back to previous page</a>
+							<!-- PUEDE QUE HAYA QUE CAMBIARLO!!!! -->
+							<a href="javascript:history.back(-1);"
+								class="btn btn-sm btn-primary">Go back to previous page</a>
 						</p>
 					</div>
 				</div>
